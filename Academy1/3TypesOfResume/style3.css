@@ -1,0 +1,63 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    /* 这种标题字体自带margin 
+    所以为什么简历这个字和下面的基础信息两个box塌陷了，合并了边距，当给简历添加了border之后，简历的背景会比之前的高*/
+}
+
+#resume {
+    background: darkgray;
+    color: white;
+    padding: 20px 20px; 
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    /* ul默认自带margin和padding  */
+}
+li {
+    display: inline-block;
+    margin-right: 35px;
+}
+
+.category {
+    /* height: 20%; 无效的 */
+    border-bottom: 1px solid lightgray;
+}
+
+.category h2 {
+    /* width: 25%; */
+    float: left;
+    padding: 40px 20px;  
+    background: lightgray;
+    border-bottom: 1px solid #fff;
+}
+
+.content {
+    /* width: 75%; */
+    float: left;
+    padding-left: 15px;
+    padding-top: 15px;
+    /* border-bottom: 1px solid lightgray; */
+}
+
+.category::after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+}
+
+.tech *, .global *, .ba *, .ma *, .projectItem *  {
+    display: inline;
+}

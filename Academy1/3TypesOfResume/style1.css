@@ -1,0 +1,34 @@
+html * {
+    margin: 0;
+    padding: 0;
+}
+#resume {
+    margin-left: 10px;
+}
+#container {
+    margin-left: 10px;
+}
+
+li {
+    display: inline-block;
+    margin-right: 35px;
+}
+
+.category {
+    margin: 20px 0;
+}
+
+.content {/* title和content的上下边距 */
+    margin: 15px 0;
+}
+
+.insideContentMargin {
+    margin-bottom: 12px;
+}
+
+.float::after{
+    content: "";
+    height: 0;
+    display: block;
+    clear: both;
+}
