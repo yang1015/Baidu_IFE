@@ -1,0 +1,80 @@
+<html>
+<head>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+        }
+
+        #outer {
+            background: #494e6B;
+            width: 100%;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        #icon {
+            position: fixed;
+            top: 5px;
+            right: 12px;
+            color: #985e6d;
+            z-index: 1;
+        }
+
+        .hidden-panel {
+            width: 300px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: -290px;
+            padding: 15px;
+            background: #1fb58f;
+            color: white;
+        }
+
+        .shown-panel {
+            width: 300px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            right: 0px;
+            padding: 15px;
+            background: #1fb58f;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="outer">
+    <h1 id="icon">?</h1>
+    <div id="panel" class = "hidden-panel">
+        Poised beneath a twig-wigged tree, she spills her sparkling vocal powder: slippery sound slivers, silvery like
+        spider's spittle, only louder.
+        Oh yes, she Cares (with a high C) for Fellow Humans (you and me); for us she'll twitter nothing bitter; she'll
+        knit her fitter, sweeter glitter; her vocal chords mince words for us and crumble croutons, with crisp crunch
+        (lunch for her little lambs to munch) into a cream-filled demitasse. But hark! It's dark! Oh doom too soon!
+        She's threatened by the black bassoon! It's hoarse and coarse, it's grim and gruff, it calls her dainty voice's
+        bluff - Basso Profondo, end this terror, do-re-mi mene tekel et cetera! You want to silence her, abduct her to
+        our chilly life behind the scenes? To our Siberian steppes of stopped-up sinuses, frogs in all throats, eternal
+        hems and haws, where we, poor souls, gape soundlessly like fish? And this is what you wish? Oh nay! Oh nay!
+        Though doom be nigh, she'll keep her chin and pitch up high! Her fate is hanging by a hair of voice so thin it
+        sounds like air,
+        but that's enough for her to take a breath and soar, without a break, chandelierward; and while she's there,
+        her vox humana crystal-clears the whole world up. And we're all ears.
+    </div>
+</div>
+
+<script>
+    var icon = document.getElementById("icon");
+    var panel = document.getElementById("panel");
+
+    icon.onclick = function () {
+        panel.setAttribute('class', panel.getAttribute('class') === 'hidden-panel'? 'shown-panel' : 'hidden-panel');
+    };
+
+</script>
+
+</body>
+</html>
