@@ -1,25 +1,25 @@
 <html>
-    <head>
-        <style>
-        
+<head>
+    <style>
         * {
             box-sizing: border-box;
             padding: 0;
         }
+
         body {
-           margin: 0;
+            margin: 0;
         }
 
         #infobox {
             width: 450px;
             height: 600px;
-            margin: 0 auto;  /* 水平居中 */
+            /*margin: 0 auto; !* 水平居中 *!*/
         }
 
-        ul {       
+        ul {
             margin: 0;
         }
-       
+
         #infobox li {
             float: left;
             width: 150px;
@@ -31,10 +31,10 @@
         }
 
         #infobox li a {
-            display: inline-block;  /* display: inline-block;  li默认是块级元素 */
+            display: inline-block; /* display: inline-block;  li默认是块级元素 */
             width: 100%;
             text-decoration: none;
-            background:#f7c331;
+            background: #f7c331;
             text-align: center;
             line-height: 3;
             color: white;
@@ -44,6 +44,7 @@
             background: #fba100;
             color: white;
         }
+
         #infobox li a:active {
             background: #fba100;
             color: white;
@@ -60,7 +61,7 @@
 
         #infobox .panels {
             clear: both;
-            height: 500x;
+            height: 500px;
             position: relative;
             /* 让接下来绝对定位的元素可以参照在这个父容器里，而非默认的html，导致影响其他区域的布局 */
         }
@@ -85,190 +86,214 @@
             background: #fba100;
         }
 
-        </style>
-    </head>
-    <body>
-        <div id = "infobox">
+        /* mission 2 fixed position
+           将infobox固定在左上侧，
+           当新的content div被滚动时，infobox的位置不受影响
+        */
 
-                    <ul>
-                        <li><a href = "#" class = "active">Tab 1</a></li>
-                        <li><a href = "#">Tab 2</a></li>
-                        <li><a href = "#">Tab 3</a></li>
-                    </ul>
+        #infobox {
+            position: fixed;
+            top: 0;
+        }
+        #fakecontent {
+            height: 2000px;
+            background: #8FC33A;
+            color: #FFF;
+            overflow: auto;
+            padding: 10px;
+            margin-left: 450px;
+        }
 
-                    <section class = "panels">
+    </style>
+</head>
+<body>
+<div id="infobox">
 
-                        <article class = "active-panel">
-                            <h2>Tab1 COLORATURA</h2>
-                            <p>
-                                    Poised beneath a twig-wigged tree, 
-                                    she spills her sparkling vocal powder: 
-                                    slippery sound slivers, silvery 
-                                    like spider's spittle, only louder. 
-                                    
-                                    Oh yes, she Cares (with a high C) 
-                                    for Fellow Humans (you and me); 
-                                    for us she'll twitter nothing bitter; 
-                                    she'll knit her fitter, sweeter glitter; 
-                                    her vocal chords mince words for us 
-                                    and crumble croutons, with crisp crunch 
-                                    (lunch for her little lambs to munch) 
-                                    into a cream-filled demitasse. 
-                                    
-                                    But hark! It's dark! Oh doom too soon! 
-                                    She's threatened by the black bassoon! 
-                                    It's hoarse and coarse, it's grim and gruff, 
-                                    it calls her dainty voice's bluff - 
-                                    Basso Profondo, end this terror, 
-                                    do-re-mi mene tekel et cetera! 
-                                    
-                                    You want to silence her, abduct her 
-                                    to our chilly life behind the scenes? 
-                                    To our Siberian steppes of stopped-up sinuses, 
-                                    frogs in all throats, eternal hems and haws, 
-                                    where we, poor souls, gape soundlessly 
-                                    like fish? And this is what you wish? 
-                                    
-                                    Oh nay! Oh nay! Though doom be nigh, 
-                                    she'll keep her chin and pitch up high! 
-                                    Her fate is hanging by a hair 
-                                    of voice so thin it sounds like air, 
-                                    but that's enough for her to take 
-                                    a breath and soar, without a break, 
-                                    
-                                    chandelierward; and while she's there, 
-                                    her vox humana crystal-clears 
-                                    the whole world up. And we're all ears. 
-                            </p>
-                        </article>
+    <ul>
+        <li><a href="#" class="active">Tab 1</a></li>
+        <li><a href="#">Tab 2</a></li>
+        <li><a href="#">Tab 3</a></li>
+    </ul>
 
-                        <article>
-                            <h2>Tab2 MIRACLE FAIR </h2>
-                            <p>
-                                    The commonplace miracle: 
-                                    that so many common miracles take place. 
-                                    
-                                    The usual miracles: 
-                                    invisible dogs barking 
-                                    in the dead of night. 
-                                    
-                                    One of many miracles: 
-                                    a small and airy cloud 
-                                    is able to upstage the massive moon. 
-                                    
-                                    Several miracles in one: 
-                                    an alder is reflected in the water 
-                                    and is reversed from left to right 
-                                    and grows from crown to root 
-                                    and never hits bottom 
-                                    though the water isn't deep. 
-                                    
-                                    A run-of-the-mill miracle: 
-                                    winds mild to moderate 
-                                    turning gusty in storms. 
-                                    
-                                    A miracle in the first place: 
-                                    cows will be cows. 
-                                    
-                                    Next but not least: 
-                                    just this cherry orchard 
-                                    from just this cherry pit. 
-                                    
-                                    A miracle minus top hat and tails: 
-                                    fluttering white doves. 
-                                    
-                                    A miracle (what else can you call it): 
-                                    the sun rose today at three fourteen a.m. 
-                                    and will set tonight at one past eight. 
-                                    
-                                    A miracle that's lost on us: 
-                                    the hand actually has fewer than six fingers 
-                                    but still it's go more than four. 
-                                    
-                                    A miracle, just take a look around: 
-                                    the inescapable earth. 
-                                    
-                                    An extra miracle, extra and ordinary: 
-                                    the unthinkable 
-                                    can be thought. 
-                            </p>
-                        </article>
+    <section class="panels">
 
-                        <article>
-                            <h2>Tab3 It's Most Fortunate</h2>
-                            <p>
-                                    It's most fortunate 
-                                    that we do not know exactly 
-                                    what kind of world we live on. 
-                                    
-                                    It would be necessary 
-                                    to have existed very long, 
-                                    decidedly longer 
-                                    than the world. 
-                                    
-                                    If only for comparison 
-                                    to get acquainted with other worlds. 
-                                    
-                                    One must soar out of the body 
-                                    which cannot do anything 
-                                    but limit 
-                                    and create difficulties. 
-                                    For the sake of research, 
-                                    clarity of the picture, 
-                                    and the final results, 
-                                    one must rise above time, 
-                                    in which everything drives and whirls. 
-                                    
-                                    From this perspective 
-                                    you must once and for all get rid of 
-                                    details and episodes. 
-                                    
-                                    Counting the days of the week 
-                                    must seem 
-                                    a meaningless activity, 
-                                    
-                                    throwing letters into a mail box 
-                                    is a whim of foolish youth, 
-                                    
-                                    the plaque "Don't trample the grass" is 
-                                    a senseless one. 
-                                    　　　
-                                    
-                            </p>
-                        </article>
-                        
-                    </section>
-        </div>
-       
-        <script>
+        <article class="active-panel">
+            <h2>Tab1 COLORATURA</h2>
+            <p>
+                Poised beneath a twig-wigged tree,
+                she spills her sparkling vocal powder:
+                slippery sound slivers, silvery
+                like spider's spittle, only louder.
 
-            var tabs = document.querySelectorAll('#infobox li a');
-            var articles = document.querySelectorAll('#infobox article');
+                Oh yes, she Cares (with a high C)
+                for Fellow Humans (you and me);
+                for us she'll twitter nothing bitter;
+                she'll knit her fitter, sweeter glitter;
+                her vocal chords mince words for us
+                and crumble croutons, with crisp crunch
+                (lunch for her little lambs to munch)
+                into a cream-filled demitasse.
 
-            for (let i = 0; i < tabs.length; i++) {
-                let tab = tabs[i];
-                toggleArtivleByTabIndex(tab, i);
+                But hark! It's dark! Oh doom too soon!
+                She's threatened by the black bassoon!
+                It's hoarse and coarse, it's grim and gruff,
+                it calls her dainty voice's bluff -
+                Basso Profondo, end this terror,
+                do-re-mi mene tekel et cetera!
+
+                You want to silence her, abduct her
+                to our chilly life behind the scenes?
+                To our Siberian steppes of stopped-up sinuses,
+                frogs in all throats, eternal hems and haws,
+                where we, poor souls, gape soundlessly
+                like fish? And this is what you wish?
+
+                Oh nay! Oh nay! Though doom be nigh,
+                she'll keep her chin and pitch up high!
+                Her fate is hanging by a hair
+                of voice so thin it sounds like air,
+                but that's enough for her to take
+                a breath and soar, without a break,
+
+                chandelierward; and while she's there,
+                her vox humana crystal-clears
+                the whole world up. And we're all ears.
+            </p>
+        </article>
+
+        <article>
+            <h2>Tab2 MIRACLE FAIR </h2>
+            <p>
+                The commonplace miracle:
+                that so many common miracles take place.
+
+                The usual miracles:
+                invisible dogs barking
+                in the dead of night.
+
+                One of many miracles:
+                a small and airy cloud
+                is able to upstage the massive moon.
+
+                Several miracles in one:
+                an alder is reflected in the water
+                and is reversed from left to right
+                and grows from crown to root
+                and never hits bottom
+                though the water isn't deep.
+
+                A run-of-the-mill miracle:
+                winds mild to moderate
+                turning gusty in storms.
+
+                A miracle in the first place:
+                cows will be cows.
+
+                Next but not least:
+                just this cherry orchard
+                from just this cherry pit.
+
+                A miracle minus top hat and tails:
+                fluttering white doves.
+
+                A miracle (what else can you call it):
+                the sun rose today at three fourteen a.m.
+                and will set tonight at one past eight.
+
+                A miracle that's lost on us:
+                the hand actually has fewer than six fingers
+                but still it's go more than four.
+
+                A miracle, just take a look around:
+                the inescapable earth.
+
+                An extra miracle, extra and ordinary:
+                the unthinkable
+                can be thought.
+            </p>
+        </article>
+
+        <article>
+            <h2>Tab3 It's Most Fortunate</h2>
+            <p>
+                It's most fortunate
+                that we do not know exactly
+                what kind of world we live on.
+
+                It would be necessary
+                to have existed very long,
+                decidedly longer
+                than the world.
+
+                If only for comparison
+                to get acquainted with other worlds.
+
+                One must soar out of the body
+                which cannot do anything
+                but limit
+                and create difficulties.
+                For the sake of research,
+                clarity of the picture,
+                and the final results,
+                one must rise above time,
+                in which everything drives and whirls.
+
+                From this perspective
+                you must once and for all get rid of
+                details and episodes.
+
+                Counting the days of the week
+                must seem
+                a meaningless activity,
+
+                throwing letters into a mail box
+                is a whim of foolish youth,
+
+                the plaque "Don't trample the grass" is
+                a senseless one.
+                　　　
+
+            </p>
+        </article>
+
+    </section>
+</div>
+
+<div id = "fakecontent">
+    <h1>Fake content section</h1>
+    1.e, only louder. Oh yes, she Cares (with a high C) for Fellow Humans (you and me); for us she'll twitter nothing bitter; she'll knit her fitter, sweeter glitter; her vocal chords mince words for us and crumble croutons, with crisp crunch (lunch for her little lambs to munch) into a cream-filled demitasse. But hark! It's dark! Oh doom too soon! She's threatened by the black bassoon! It's hoarse and coarse, it's grim and gruff, it calls her dainty voice's bluff - Basso Profondo, end this terror, do-re-mi mene tekel et cetera! You want to silence her, abduct her to our chilly life behind the scenes? To our Siberian steppes of stopped-up sin
+    3.e, only louder. Oh yes, she Cares (with a high C) for Fellow Humans (you and me); for us she'll twitter nothing bitter; she'll knit her fitter, sweeter glitter; her vocal chords mince words for us and crumble croutons, with crisp crunch (lunch for her little lambs to munch) into a cream-filled demitasse. But hark! It's dark! Oh doom too soon! She's threatened by the black bassoon! It's hoarse and coarse, it's grim and gruff, it calls her dainty voice's bluff - Basso Profondo, end this terror, do-re-mi mene tekel et cetera! You want to silence her, abduct her to our chilly life behind the scenes? To our Siberian steppes of stopped-up sin
+    4.e, only louder. Oh yes, she Cares (with a high C) for Fellow Humans (you and me); for us she'll twitter nothing bitter; she'll knit her fitter, sweeter glitter; her vocal chords mince words for us and crumble croutons, with crisp crunch (lunch for her little lambs to munch) into a cream-filled demitasse. But hark! It's dark! Oh doom too soon! She's threatened by the black bassoon! It's hoarse and coarse, it's grim and gruff, it calls her dainty voice's bluff - Basso Profondo, end this terror, do-re-mi mene tekel et cetera! You want to silence her, abduct her to our chilly life behind the scenes? To our Siberian steppes of stopped-up sin
+</div>
+<script>
+
+    var tabs = document.querySelectorAll('#infobox li a');
+    var articles = document.querySelectorAll('#infobox article');
+
+    for (let i = 0; i < tabs.length; i++) {
+        let tab = tabs[i];
+        toggleArtivleByTabIndex(tab, i);
+    }
+
+    function toggleArtivleByTabIndex(tab, tabIndex) {
+
+        // 给每个tab绑定onClick事件
+        tab.onclick = function () {
+
+            // 修改选项卡样式
+            for (let a = 0; a < tabs.length; a++) {
+                if (tabs[a].getAttribute('class')) tabs[a].removeAttribute('class');
             }
+            tabs[tabIndex].setAttribute('class', 'active');
 
-            function toggleArtivleByTabIndex(tab, tabIndex) {
-
-                // 给每个tab绑定onClick事件
-                tab.onclick = function(){
-
-                    // 修改选项卡样式
-                    for (let a = 0; a < tabs.length; a++) {
-                        if (tabs[a].getAttribute('class')) tabs[a].removeAttribute('class');
-                    }
-                    tabs[tabIndex].setAttribute('class', 'active');
-
-                    // toggle文章内容 z-index
-                    for (let b = 0; b < articles.length; b++) {
-                        if (articles[b].getAttribute('class')) articles[b].removeAttribute('class');
-                    }
-                    articles[tabIndex].setAttribute('class', 'active-panel');
-                }
+            // toggle文章内容 z-index
+            for (let b = 0; b < articles.length; b++) {
+                if (articles[b].getAttribute('class')) articles[b].removeAttribute('class');
             }
+            articles[tabIndex].setAttribute('class', 'active-panel');
+        }
+    }
 
-            </script>
-    </body>
+</script>
+</body>
 </html>
