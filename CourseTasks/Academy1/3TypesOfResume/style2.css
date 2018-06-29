@@ -1,0 +1,63 @@
+html * {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 60%;
+    height: 100%;
+}
+* {
+    box-sizing: border-box;
+}
+
+#resume {
+    width: 30%;
+    height: -webkit-fill-available;
+    float: left;
+    text-align: center;
+    padding-top: 60px;
+    /* width百分比+padding具体数字的搭配没有办法让简历两个大字始终居中 */
+    background: lightblue;
+}
+#container {
+    width: 60%;
+    height: -webkit-fill-available;
+    float: left;
+    padding-top: 20px;
+    padding-left: 15px;
+    background: lemonchiffon;  
+}
+
+
+li {
+    display: inline-block;
+    margin-right: 35px;
+}
+
+.buttonUl li{
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.category {
+    margin: 20px 0;
+}
+
+
+.content {
+    /* title和content的上下边距 */
+    margin: 15px 0;
+}
+
+.insideContentMargin {
+    margin-bottom: 12px;
+}
+
+.float::after{
+    content: "";
+    height: 0;
+    display: block;
+    clear: both;
+}
