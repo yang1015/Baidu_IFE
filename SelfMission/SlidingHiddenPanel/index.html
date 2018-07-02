@@ -1,77 +1,127 @@
 <html>
 <head>
     <style>
+        body {
+            font-family: 'IM Fell French Canon', serif;
+        }
         * {
             box-sizing: border-box;
             padding: 0;
         }
 
-        #outer {
+        .outer {
             background: #494e6B;
             width: 100%;
         }
 
-        h1 {
-            margin: 0;
-        }
-
         #icon {
+            margin: 0;
             position: fixed;
+            /*
+                example上官方使用的是absolute，但是应该是一致的，
+                since we got no non-static positioned elements in our father divs,
+                so it goes to HTML element.
+            */
             top: 5px;
             right: 12px;
             color: #985e6d;
             z-index: 1;
+            cursor: pointer;
+        }
+
+        #panel2 {
+            width: 300px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            padding: 30px 15px;
+            background: #1fb58f;
+            color: white;
+            transition: 0.6s all;
         }
 
         .hidden-panel {
-            width: 300px;
-            height: 100%;
-            position: fixed;
-            top: 0;
             right: -290px;
-            padding: 15px;
-            background: #1fb58f;
-            color: white;
         }
 
         .shown-panel {
+            right: 0px;
+        }
+
+
+        /* 官方实现 */
+
+        label[for = "questionMark"] {
+            font-size: 2rem;
+            font-weight: 600;
+            position: absolute;
+            top: 5px;
+            left: 12px;
+            color: #985e6d;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+
+        input[type = "checkbox"] {
+            position: absolute;
+            top: -100px;
+            /* 为了将input checkbox的实体小框框完全隐藏在外宇宙 */
+        }
+
+        aside {
             width: 300px;
             height: 100%;
             position: fixed;
             top: 0;
-            right: 0px;
-            padding: 15px;
-            background: #1fb58f;
+            left: -290px;
+            padding: 32px 15px;
+            background: #f24c4e;
             color: white;
+            transition: 0.6s all;
         }
+
+        input[type = checkbox]:checked + aside {
+            left: 0px;
+        }
+
+
     </style>
+    <link href='http://fonts.font.im/css?family=IM+Fell+French+Canon:400,400italic' rel='stylesheet' type='text/css' />
 </head>
 <body>
-<div id="outer">
-    <h1 id="icon">?</h1>
-    <div id="panel" class = "hidden-panel">
-        Poised beneath a twig-wigged tree, she spills her sparkling vocal powder: slippery sound slivers, silvery like
-        spider's spittle, only louder.
-        Oh yes, she Cares (with a high C) for Fellow Humans (you and me); for us she'll twitter nothing bitter; she'll
-        knit her fitter, sweeter glitter; her vocal chords mince words for us and crumble croutons, with crisp crunch
-        (lunch for her little lambs to munch) into a cream-filled demitasse. But hark! It's dark! Oh doom too soon!
-        She's threatened by the black bassoon! It's hoarse and coarse, it's grim and gruff, it calls her dainty voice's
-        bluff - Basso Profondo, end this terror, do-re-mi mene tekel et cetera! You want to silence her, abduct her to
-        our chilly life behind the scenes? To our Siberian steppes of stopped-up sinuses, frogs in all throats, eternal
-        hems and haws, where we, poor souls, gape soundlessly like fish? And this is what you wish? Oh nay! Oh nay!
-        Though doom be nigh, she'll keep her chin and pitch up high! Her fate is hanging by a hair of voice so thin it
-        sounds like air,
-        but that's enough for her to take a breath and soar, without a break, chandelierward; and while she's there,
-        her vox humana crystal-clears the whole world up. And we're all ears.
-    </div>
+<div class="outer">
+    <label for="questionMark">!</label>
+    <input id = "questionMark" type = "checkbox" />
+    <aside>
+       官方的实现方法：<br/>
+            label + checkbox 使用id和for来绑定彼此的关系，<br/>再将checkbox的实体小框框抛出外太空 top: -100px<br/>
+            使用aside tag, 将aside的隐藏模式css样式作为主样式，<br/>结合checkbox的点击与否来直接调整left为0或者不为0
+    </aside>
 </div>
 
+<div class="outer">
+    <h1 id="icon">?</h1>
+    <div id="panel2" class = "hidden-panel">
+        我自己先写的方法：<br/>
+            question mark是一个h1的icon<br/>
+            div的panel内容，首先默认也是写成隐藏模式下的css样式，<br/>
+            然后css里额外写了hidden-panel和shown-panel两个样式来管控right为0或者为负数隐藏<br/>
+            panel初始状况下带hidden-panel的class样式<br/>
+            结合js的onclick绑定来判断当前panel是否是hidden-panel class，如果是，那么在点了一次之后需要setAttribute为shown-panel，反之。<br/>
+        总结一下，比起官方的写法，<br/>
+        1-  我额外多了js代码，checkbox跟panel结合隐藏显示的对应还是官方精简的多。<br/>
+        2-  label + checkbox比添加类卸载类更加方便 <br />
+        3-  一开始忘记用transition辣
+    </div>
+</div>
+<!--<div id = "other">23131231231312</div>-->
 <script>
     var icon = document.getElementById("icon");
-    var panel = document.getElementById("panel");
+    var panel2 = document.getElementById("panel2");
 
     icon.onclick = function () {
-        panel.setAttribute('class', panel.getAttribute('class') === 'hidden-panel'? 'shown-panel' : 'hidden-panel');
+        panel2.setAttribute('class', panel2.getAttribute('class') === 'hidden-panel'? 'shown-panel' : 'hidden-panel');
     };
 
 </script>
