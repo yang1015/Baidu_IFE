@@ -1,0 +1,297 @@
+<html>
+    <head>
+        <style>
+
+            * {
+                box-sizing: border-box;
+                font-weight: 300;
+            }
+
+            h2 {
+                color: darkorange;
+                font-weight: 600;
+            }
+
+            h3 {
+                color: darkkhaki;
+                font-weight: 500;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .container {
+                height: 100px;
+            }
+
+            .container div {
+                height: inherit;
+            }
+
+            /* case 1: 实现一个两栏布局，左侧占30%宽度，右侧占70%宽度 */
+
+            /* solution 1: float */
+            #floatContainer div:nth-of-type(1) {
+                width: 30%;
+                float: left;
+                background: lightcoral;
+            }
+
+            #floatContainer div:nth-of-type(2) {
+                width: 70%;
+                float: left;
+                background: lemonchiffon;
+            }
+
+            #floatContainer::after {
+                content: " ";
+                display: block;
+                height: 0;
+                clear: both;
+            }
+
+            /* solution 2: position */
+            #positionContainer {
+                position: relative;
+            }
+           
+            #positionContainer div:nth-of-type(1) {
+                width: 30%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: lightblue;
+            }
+
+            #positionContainer div:nth-of-type(2) {
+                margin-left: 30%;
+                width: 70%;
+                background: lightseagreen;
+            }
+
+            /* solution 3: flex */
+
+            #flexContainer {
+                display: flex;
+            }
+
+            #flexContainer div:nth-of-type(1) {
+                flex: 3;
+                background: lightgray;
+            }
+
+            #flexContainer div:nth-of-type(2) {
+                flex: 7;
+                background: lightpink;
+            }
+
+            /* case 2: 实现一个两栏布局，左侧固定宽度，右侧根据浏览器宽度进行自适应变化 */
+
+            /* solution 1: float */
+
+            #floatContainer2 div:nth-of-type(1) {
+                width: 200px;
+                float: left;
+                background: darkcyan;
+            }
+
+            #floatContainer2 div:nth-of-type(2) {
+                float: left;
+                width: calc(100% - 200px);
+                background: darkseagreen;
+            }
+
+            #floatContainer2::after {
+                content: " ";
+                display: block;
+                height: 0;
+                clear: both;
+            }
+
+            /* solution 2: position */
+
+            #positionContainer2 {
+                position: relative;
+            }
+
+            #positionContainer2 div:nth-of-type(1) {
+                width: 200px;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                background: brown;
+            }
+
+            #positionContainer2 div:nth-of-type(2) {
+                margin-left: 200px;
+                background: bisque;
+            }
+
+            /* solution 3: flex */
+
+            #flexContainer2 {
+                display: flex;
+            }
+
+            #flexContainer2 div:nth-of-type(1) {
+               width: 200px;
+               background: lightblue;
+            }
+
+            #flexContainer2 div:nth-of-type(2) {
+                flex: 1;
+                background: lightgreen;
+            }
+
+            /* case 3: 实现一个两栏布局，右侧固定宽度，左侧根据浏览器宽度进行自适应变化 */
+
+            /* solution 1: float */
+
+            #floatContainer3 div:nth-of-type(2) {
+                width: 200px;
+                float: right;
+                background: lightcoral;
+            }
+
+            #floatContainer3 div:nth-of-type(1) {
+                float: left;
+                width: calc(100% - 200px);
+                background: lightseagreen;
+            }
+
+             /* solution 2: position */
+
+            #positionContainer3 {
+                position: relative;
+            }
+
+            #positionContainer3 div:nth-of-type(1) {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 200px;
+                background: darkorange;
+            }
+
+            #positionContainer3 div:nth-of-type(2) {
+                width: 200px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                background: darkkhaki;
+            }
+
+             /* solution 3: flex */
+
+            #flexContainer3 {
+                display: flex;
+            }
+
+            #flexContainer3 div:nth-of-type(1) {
+                flex: 1;
+                background: lightblue;
+            }
+
+            #flexContainer3 div:nth-of-type(2) {
+                width: 200px;
+                background: darkcyan;
+            }
+            
+        </style>
+    </head>
+
+    <body>
+        <h2>
+                实现一个两栏布局，左侧占30%宽度，右侧占70%宽度
+        </h2>
+        <div class = "container" id = "floatContainer">
+                <div></div>
+                <div></div>
+        </div>
+        <div></div>
+
+        <div class = "container" id = "positionContainer">
+            <div></div>
+            <div></div>
+        </div>
+
+        <div class = "container" id = "flexContainer">
+           <div></div>
+            <div></div>
+        </div>
+
+        <h2>
+                实现一个两栏布局，左侧固定宽度，右侧根据浏览器宽度进行自适应变化
+        </h2>
+        <h3>使用float</h3>
+       
+        <div class = "container" id = "floatContainer2">
+                <div>
+                        1- 使用单左边float + 右边margin-left空出左边的Width
+                </div>
+                <div>
+                        2- 使用双float <br />
+                        定宽200px; float: left; <br />
+                        计算剩余宽度calc(100% - 200px); float: left; <br />
+                </div>
+        </div>
+
+        <h3>使用position</h3>
+        <div class = "container" id = "positionContainer2">
+            <div>父容器relative</div>
+            <div>
+                1- 子元素左侧定宽200px, absolute, top/left: 0; 右侧margin-left留出200px;<br />
+                2- 或者反过来左侧定宽，右侧absolute, top: 0; left: 200px; 但是这种方案右侧元素不能占满剩下的空间。需再加上right: 0px;
+            </div>
+        </div>
+
+        <h3>使用flex</h3>
+        <div class = "container" id = "flexContainer2">
+            <div>父容器display: flex</div>
+            <div>左边元素定宽200px; 右边元素flex: 1;表示占满剩下的全部空间</div>
+        </div>
+
+
+        <h2>实现一个两栏布局，右侧固定宽度，左侧根据浏览器宽度进行自适应变化</h2>
+
+        <h3>使用float</h3>
+
+        <div class = "container" id = "floatContainer3">
+                <div>
+                        左侧calc(100% - 200px)动态计算,
+                        float: left;
+                        
+                </div>
+                <div> 
+                    右侧定宽200px, float: right
+                       
+                </div>
+        </div>
+
+        <h3>使用position</h3>
+
+        <div class = "container" id = "positionContainer3">
+                <div>
+                       父容器relative
+                       左侧子元素 absolute, left/top: 0; right: 右侧元素的宽;
+                </div>
+                <div> 
+                    右侧元素 absolute, <br />top/right: 0;
+                       
+                </div>
+        </div>
+
+        <h3>使用flex</h3>
+        
+                <div class = "container" id = "flexContainer3">
+                        <div>
+                               父容器flex
+                               左侧子元素 flex: 1; 占满剩下的空间
+                        </div>
+                        <div> 
+                            右侧元素 width: 200px
+                        </div>
+                </div>
+    </body>
+</html>
