@@ -3,11 +3,23 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
         }
 
         body {
             margin: 0;
             padding: 0;
+        }
+
+        ul {
+            padding-left: 0px;
+            /* ul默认带margin和padding */
+        }
+
+        ul li {
+            display: inline-block;
+            /* inlineblock之间默认4px的间距*/
+            margin-right: -4px;
         }
 
         header {
@@ -35,17 +47,125 @@
             align-self: flex-start;
             margin: 0;
             padding-top: 5px;
-
         }
 
-        ul li {
-            display: inline;
+        header div ul li {
             margin-right: 5px;
+            font-size: smaller;
         }
 
-        ul li a {
+        header div ul li a {
             color: #fff;
         }
+
+        #banner {
+            height: 200px;
+            background: lightseagreen;
+        }
+
+        #banner #bannerUlWrapper {
+            max-width: 960px;
+            height: inherit;
+            margin: 0 auto;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        #bannerUlWrapper ul {
+            margin: 0 0 5px 0;
+        }
+
+        #bannerUlWrapper ul li {
+            padding: 4px 5px;
+            margin-right: 3px;
+            background: #fff;
+            color: darkgray;
+            opacity: 0.7;
+            font-size: x-small;
+            border: 1px solid darkgray;
+        }
+
+        #bannerUlWrapper ul li:nth-of-type(2) {
+            opacity: 1.0;
+            padding-top: 10px;
+        }
+
+        #bannerUlWrapper ul li:nth-of-type(4) {
+            margin-right: 0px;
+        }
+
+        nav {
+            height: 50px;
+            border-bottom: 1px solid lightgray;
+        }
+
+        nav #navWrapper {
+            height: inherit;
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        #navWrapper ul li {
+            border: 1px solid lightgray;
+            border-radius: 1rem 1rem 0 0;
+            padding: 10px 15px;
+            width: 33%;
+            text-align: center;
+            color: #494e6B;
+            font-size: x-small;
+        }
+
+        #navWrapper ul li:nth-of-type(1) {
+            border-bottom: none;
+        }
+
+        #navWrapper ul li:nth-of-type(2), #navWrapper ul li:nth-of-type(3) {
+            background: lavender;
+        }
+
+        #contentWrapper {
+            display: flex;
+            max-width: 960px;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 0 auto;
+            /*padding: 10px 0;*/
+        }
+
+        #contentWrapper div {
+            border: 1px solid lightgray;
+            flex: 1 160px;
+            height: 220px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* line-height: 220px;
+               text-align: center;
+               如果文字超出一行 这个方案就有问题了
+            */
+            margin: 15px 15px 15px 0;
+            color: #494e6B;
+        }
+
+        footer {
+            background: darkslategrey;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        footer p {
+            color: #fff;
+            font-size: small;
+        }
+
+
+
+
     </style>
 </head>
 
@@ -63,11 +183,45 @@
 </header>
 
 
-<div></div>
-    <nav></nav>
-    <div id="container">
-
+<div id="banner">
+    <div id="bannerUlWrapper">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
     </div>
-    <footer></footer>
+</div>
+
+<nav>
+    <div id="navWrapper">
+        <ul>
+            <li>HOME</li>
+            <li>PROFILE</li>
+            <li>ABOUT</li>
+        </ul>
+    </div>
+</nav>
+
+
+<div id="container">
+    <div id = "contentWrapper">
+        <div>This is Content 1 This is Content 1</div>
+        <div>Maybe Content 2</div>
+        <div>Content 3</div>
+        <div>Content 4</div>
+        <div>Content 5</div>
+        <div>Content 6</div>
+        <div>Content 7</div>
+        <div>Content 8</div>
+        <div>Content 9</div>
+        <div>Content 10</div>
+    </div>
+
+</div>
+<footer>
+    <p>2018 ife.baidu.com</p>
+</footer>
 </body>
 </html>
