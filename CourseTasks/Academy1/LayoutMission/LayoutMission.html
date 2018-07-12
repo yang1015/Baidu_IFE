@@ -112,44 +112,50 @@
             border: 1px solid lightgray;
             border-radius: 1rem 1rem 0 0;
             padding: 10px 15px;
-            width: 33%;
             text-align: center;
             color: #494e6B;
             font-size: x-small;
         }
 
-        #navWrapper ul li:nth-of-type(1) {
-            border-bottom: none;
+        #navWrapper ul .active {
+            border-bottom: 1px solid #fff;
         }
 
         #navWrapper ul li:nth-of-type(2), #navWrapper ul li:nth-of-type(3) {
-            background: lavender;
+            background: lightcyan;
         }
 
         #contentWrapper {
             display: flex;
             max-width: 960px;
-            flex-wrap: wrap;
-            justify-content: space-around;
+            flex-direction: column;
             margin: 0 auto;
-            /*padding: 10px 0;*/
         }
 
-        #contentWrapper div {
-            border: 1px solid lightgray;
-            flex: 1 160px;
-            height: 220px;
+        #contentWrapper .row {
             display: flex;
+            justify-content: space-between;
+        }
+
+        #contentWrapper .row div{
+            border: 1px solid lightgray;
+            height: 200px;
+            color: #494e6B;
             justify-content: center;
             align-items: center;
+            padding: 80px;
+            margin: 15px 15px 15px 0px;
             /* line-height: 220px;
                text-align: center;
                如果文字超出一行 这个方案就有问题了
             */
-            margin: 15px 15px 15px 0;
-            color: #494e6B;
         }
-
+       .row div {
+           flex: 1;
+       }
+       #contentWrapper div:nth-of-type(1) div:nth-of-type(1) {
+           flex: 3;
+       }
         footer {
             background: darkslategrey;
             height: 80px;
@@ -162,8 +168,6 @@
             color: #fff;
             font-size: small;
         }
-
-
 
 
     </style>
@@ -197,7 +201,7 @@
 <nav>
     <div id="navWrapper">
         <ul>
-            <li>HOME</li>
+            <li class="active">HOME</li>
             <li>PROFILE</li>
             <li>ABOUT</li>
         </ul>
@@ -206,17 +210,23 @@
 
 
 <div id="container">
-    <div id = "contentWrapper">
-        <div>This is Content 1 This is Content 1</div>
-        <div>Maybe Content 2</div>
-        <div>Content 3</div>
-        <div>Content 4</div>
-        <div>Content 5</div>
-        <div>Content 6</div>
-        <div>Content 7</div>
-        <div>Content 8</div>
-        <div>Content 9</div>
-        <div>Content 10</div>
+    <div id="contentWrapper">
+        <div class="row">
+            <div>This is Content 1 This is Content 1</div>
+            <div>Maybe Content 2</div>
+            <div>Content 3</div>
+        </div>
+        <div class="row">
+            <div>Content 4</div>
+            <div>Content 5</div>
+            <div>Content 6</div>
+            <div>Content 7</div>
+        </div>
+        <div class="row">
+            <div>Content 8</div>
+            <div>Content 9</div>
+            <div>Content 10</div>
+        </div>
     </div>
 
 </div>
