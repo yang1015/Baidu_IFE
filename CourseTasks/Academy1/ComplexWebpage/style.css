@@ -53,7 +53,7 @@ h1, h2{
 }
 
 #account-section {
-    border: 1px solid lightgray;
+    border: 1px dotted lightgray;
     padding: 10px 40px;
     box-sizing: content-box;
 }
