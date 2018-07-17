@@ -1,0 +1,128 @@
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            border: 1px solid red;
+            margin-left: 100px;
+            font-weight: 600;
+        }
+        html {
+            border: 1px solid blue;
+        }
+        #main {
+            width: 600px;
+        }
+
+        article {
+            height: 150px;
+            padding-top: 20px;
+            opacity: 0.7;
+        }
+
+        article:nth-of-type(1) {
+            background: lightcoral;
+        }
+        article:nth-of-type(2) {
+            background: lightseagreen;
+            position: relative;
+            left: 20px;
+            top: 20px;
+            z-index: 1;
+            padding-top: 50px;
+        }
+        article:nth-of-type(3) {
+            background: lightblue;
+            position: relative;
+        }
+        article:nth-of-type(4) {
+            background: lightgreen;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: inherit;
+        }
+
+        article:nth-of-type(5) {
+            background: lightgoldenrodyellow;
+        }
+
+        #fixed {
+            width: 100px;
+            height: 100px;
+            background: lightslategray;
+            position: fixed;
+            right: 0px;
+            bottom: 0px;
+            overflow: auto;
+        }
+
+        #second {
+            background: lavender;
+            width: 600px;
+            height: 500px;
+            position: relative;
+            opacity: 0.7;
+        }
+
+        #second article {
+            position: absolute;
+            background: lime;
+            top: 100px;
+            left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+<div id = "main">
+    <article>
+        article - 1 <br />
+        这是一个static元素，默认状态.
+    </article>
+
+    <article id = "relative">
+        article - 2 <br />
+        这是一个relative元素，定位相对于正常情况下元素的位置来说。<br />
+        向右偏移20px，向下偏移20px，<br />
+        文档流中本该占据的空间不变，也不会被后来的元素充满。
+    </article>
+
+    <article>
+        article - 3 <br />
+        这是一个relative元素，但是没有写入偏移数据。<br />
+        其表现状态与static完全一致。<br />
+        可以看到，没有占据上一个relative元素因偏移所露出的空隙。
+    </article>
+
+    <article>
+        article - 4 <br />
+        这是一个absolute元素，向右下各偏移100px。<br />
+        根据最近的定位的祖先元素而定位，如果没有，那么就是根据html元素来定位。<br />
+        此处，依据html元素，向右偏移100px, 向下偏移100px。
+        (note: 不是根据body元素。blue border为html边界，red border为body边界。
+        明显当body的margin-left为100px时，当前这个元素是按照html而定位的。)
+    </article>
+
+    <article>
+        article - 5 <br />
+        这是一个static元素。<br />
+        可以看到，它自动占据了上一个absolute元素因偏移而留下的间隙。
+    </article>
+</div>
+
+<div id = "second">
+    此处为父容器，设置为positioned(relative)元素。
+    <article>
+        article - 6 <br />
+        这是一个absolute元素。
+        父容器为定位元素，因此该例中依据父元素的位置调整偏移。
+    </article>
+</div>
+
+<article id = "fixed">
+    这是一个fixed元素，定位是相对于视窗来说的，所以不论滚动与否，位置不会变。
+</article>
+</body>
+</html>
