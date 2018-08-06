@@ -1,25 +1,276 @@
 <html>
 <head>
-    <link rel="stylesheet" href="./style.css" type="text/css" />
+    <link rel="stylesheet" href="./style.css" type="text/css"/>
 </head>
 <body>
 
-<!--最左侧一列要求自适应浏览器高度，左上面4个按钮相对浏览器左上角固定位置，左下方两个按钮相对浏览器左下角固定位置-->
+<!--最左侧一列要求【自适应浏览器高度】，左上面4个按钮相对浏览器左上角固定位置，左下方两个按钮相对浏览器左下角固定位置-->
 <!--左侧第二列(蓝色背景色)导航列【固定宽度】，高度也是自适应浏览器高度，最下面的Monthly Goals部分的内容相对浏览器下边固定位置-->
 <!--整个白色区域【自适应宽度】，右上方的人脸，名字部分相对浏览器右上角固定位置-->
 <!--白色区域【左侧列固定宽度】，【右侧列自适应宽度】-->
 
 
+<div class="page-container">
 
-    <div>
-        <div className = "functions-column"></div>
-        <div className = "menu"></div>
-        <div>
-            <div className = "title-row">整行</div>
-            <div className = "message-box"></div>
-            <div className = "sns-contents"></div>
+    <div class="functions-column">
+        <div class="top-functions">
+            <img class="function-icon" src="./images/colorful.png"/>
+            <img class="function-icon" src="./images/colorful.png"/>
+            <img class="function-icon" src="./images/colorful.png"/>
+            <img class="function-icon" src="./images/add.png"/>
+        </div>
+        <div class="bottom-functions">
+            <img class="function-small-icon" src="./images/category.png"/>
+            <img class="function-small-icon" src="./images/settings.png"/>
         </div>
     </div>
+
+    <div class="menu-section">
+        <div class="menu-list">
+            <div class="menu-item">
+                <div class="menu-title">
+                    <p>MENU</p>
+                    <img class="small-icon" src="./images/settings.png"/>
+                </div>
+                <ul class="menu-ul">
+                    <li>Overview</li>
+                    <li class="li-updated">
+                        <div class = "updated-dot"></div>
+                        Sales
+                        <div class="blue-updated">24</div>
+                    </li>
+                    <li>Your Staff</li>
+                    <li>Analytics & Targeting</li>
+                    <li>What's New</li>
+                </ul>
+            </div>
+            <div class="menu-item">
+                <div class="menu-title">
+                    <p>YOUR PRODUCTS</p>
+                    <img class="small-icon" src="./images/settings.png"/>
+                </div>
+                <ul class="menu-ul">
+                    <li>
+                        <img class="small-icon" src="./images/1.png"/>
+                        Books
+                    </li>
+                    <li>
+                        <img class="small-icon" src="./images/2.png"/>
+                        Tutorial
+                    </li>
+                    <li>
+                        <img class="small-icon" src="./images/3.png"/>
+                        Stocks
+                    </li>
+                    <li>
+                        <img class="small-icon" src="./images/4.png"/>
+                        Infographics
+                    </li>
+                </ul>
+            </div>
+            <div class="menu-item">
+                <div class="menu-title">
+                    <p>DASHBOARD</p>
+                    <img class="small-icon" src="./images/settings.png"/>
+                </div>
+                <ul class="menu-ul">
+                    <li class="li-updated">
+                        <div class = "updated-dot"></div>
+                        Messages
+                        <div class="blue-updated">21</div>
+                    <li>Connections</li>
+                    <li class="li-updated">Integrations
+                        <div class="red-warning">!</div>
+                    </li>
+                    <li>Account Settings</li>
+                    <li>App Settings</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="menu-bottom">
+            <p>Monthly Goals</p>
+            <p>$580/$3200</p>
+        </div>
+
+    </div>
+
+
+    <div class = "message-box-container">
+
+        <div class="title-row">
+            <h2>Messages</h2>
+            <div class = "avatar-name-job">
+                <img class = "avatar-icon" src = "./images/avatar.jpeg" />
+                <div class = "name-job">
+                    <p class = "name">Jordan J.</p>
+                    <p class = "job">Administrator</p>
+                </div>
+                <img class = "small-icon" src = "./images/arrows.png" />
+            </div>
+        </div>
+
+        <div class = "content-container">
+            <div class="message-box">
+                <div class = "search-section">
+                    <input type = "text" placeholder="search"/>
+                </div>
+                <div class = "chat-log-container">
+
+                    <div class = "chat-log-item gray-color">
+                        <div class = "chat-log-info">
+                            <div class = "chat-log-info-left">
+                                <img src = "./images/avatar.jpeg" class = "avatar-icon"/>
+                                <div class = "chat-log-info-left-name-job">
+                                    <p class = "blue-color">Bessise Berry</p>
+                                    <p>Twitter</p>
+                                </div>
+
+                            </div>
+                            <div>3m</div>
+                        </div>
+                        <div class = "chat-log-content">
+                            <div>contents Twitter TwitterTwitter Twitter Twitter Twitter Twitter Twitter</div>
+                            <div class = "blue-updated">4</div>
+                        </div>
+                    </div>
+
+                    <div class = "chat-log-item gray-color">
+                        <div class = "chat-log-info">
+                            <div class = "chat-log-info-left">
+                                <img src = "./images/avatar.jpeg" class = "avatar-icon"/>
+                                <div class = "chat-log-info-left-name-job">
+                                    <p class = "blue-color">Bessise Berry</p>
+                                    <p>Twitter</p>
+                                </div>
+
+                            </div>
+                            <div>3m</div>
+                        </div>
+                        <div class = "chat-log-content">
+                            <div>contents Twitter TwitterTwitter Twitter Twitter Twitter Twitter Twitter</div>
+                            <div class = "blue-updated">4</div>
+                        </div>
+                    </div>
+
+                    <div class = "chat-log-item gray-color">
+                        <div class = "chat-log-info">
+                            <div class = "chat-log-info-left">
+                                <img src = "./images/avatar.jpeg" class = "avatar-icon"/>
+                                <div class = "chat-log-info-left-name-job">
+                                    <p class = "blue-color">Bessise Berry</p>
+                                    <p>Twitter</p>
+                                </div>
+
+                            </div>
+                            <div>3m</div>
+                        </div>
+                        <div class = "chat-log-content">
+                            <div>contents Twitter TwitterTwitter Twitter Twitter Twitter Twitter Twitter</div>
+                            <div class = "blue-updated">4</div>
+                        </div>
+                    </div>
+
+                    <div class = "chat-log-item gray-color">
+                        <div class = "chat-log-info">
+                            <div class = "chat-log-info-left">
+                                <img src = "./images/avatar.jpeg" class = "avatar-icon"/>
+                                <div class = "chat-log-info-left-name-job">
+                                    <p class = "blue-color">Bessise Berry</p>
+                                    <p>Twitter</p>
+                                </div>
+
+                            </div>
+                            <div>3m</div>
+                        </div>
+                        <div class = "chat-log-content">
+                            <div>contents Twitter TwitterTwitter Twitter Twitter Twitter Twitter Twitter</div>
+                            <div class = "blue-updated">4</div>
+                        </div>
+                    </div>
+
+                    <div class = "chat-log-item gray-color">
+                        <div class = "chat-log-info">
+                            <div class = "chat-log-info-left">
+                                <img src = "./images/avatar.jpeg" class = "avatar-icon"/>
+                                <div class = "chat-log-info-left-name-job">
+                                    <p class = "blue-color">Bessise Berry</p>
+                                    <p>Twitter</p>
+                                </div>
+
+                            </div>
+                            <div>3m</div>
+                        </div>
+                        <div class = "chat-log-content">
+                            <div>contents Twitter TwitterTwitter Twitter Twitter Twitter Twitter Twitter</div>
+                            <div class = "blue-updated">4</div>
+                        </div>
+                    </div>
+
+                    <div class = "chat-log-item gray-color">
+                        <div class = "chat-log-info">
+                            <div class = "chat-log-info-left">
+                                <img src = "./images/avatar.jpeg" class = "avatar-icon"/>
+                                <div class = "chat-log-info-left-name-job">
+                                    <p class = "blue-color">Bessise Berry</p>
+                                    <p>Twitter</p>
+                                </div>
+
+                            </div>
+                            <div>3m</div>
+                        </div>
+                        <div class = "chat-log-content">
+                            <div>contents Twitter TwitterTwitter Twitter Twitter Twitter Twitter Twitter</div>
+                            <div class = "blue-updated">4</div>
+                        </div>
+                    </div>
+
+                    <div class = "chat-log-item gray-color">
+                        <div class = "chat-log-info">
+                            <div class = "chat-log-info-left">
+                                <img src = "./images/avatar.jpeg" class = "avatar-icon"/>
+                                <div class = "chat-log-info-left-name-job">
+                                    <p class = "blue-color">Bessise Berry</p>
+                                    <p>Twitter</p>
+                                </div>
+
+                            </div>
+                            <div>3m</div>
+                        </div>
+                        <div class = "chat-log-content">
+                            <div>contents Twitter TwitterTwitter Twitter Twitter Twitter Twitter Twitter</div>
+                            <div class = "blue-updated">4</div>
+                        </div>
+                    </div>
+
+                    <div class = "chat-log-item gray-color">
+                        <div class = "chat-log-info">
+                            <div class = "chat-log-info-left">
+                                <img src = "./images/avatar.jpeg" class = "avatar-icon"/>
+                                <div class = "chat-log-info-left-name-job">
+                                    <p class = "blue-color">Bessise Berry</p>
+                                    <p>Twitter</p>
+                                </div>
+
+                            </div>
+                            <div>3m</div>
+                        </div>
+                        <div class = "chat-log-content">
+                            <div>contents Twitter TwitterTwitter Twitter Twitter Twitter Twitter Twitter</div>
+                            <div class = "blue-updated">4</div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <div class="sns-contents"></div>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
