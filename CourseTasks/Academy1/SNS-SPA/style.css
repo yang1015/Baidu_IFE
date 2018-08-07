@@ -154,6 +154,7 @@ ul, ol {
     height: inherit;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     /*border: 1px solid yellow;*/
 }
 
@@ -256,7 +257,7 @@ ul, ol {
     justify-content: space-between;
     box-sizing: border-box;
     padding: 15px 20px;
-    border: 1px solid #e6e9ec;
+    border-bottom: 1px solid #e6e9ec;
 }
 
 .chat-log-item .chat-log-info {
@@ -326,7 +327,7 @@ ul, ol {
 .Moonstar {
     position: relative;
     font-size: 32px;
-    color: #b5b5b5;
+    color: #354052;
 }
 
 .Moonstar::after{
@@ -338,7 +339,7 @@ ul, ol {
     border-radius: 25px;
     position: absolute;
     right: -20px; /* 容易忘记 */
-    top: 50%; /* 容易忘记 */
+    top: 45%; /* 容易忘记 */
 }
 
 .images-pageIndex-images {
