@@ -1,0 +1,117 @@
+<html>
+<head>
+
+</head>
+<body>
+    <div>
+        <select id="year-select" onChange = "selectionChanged(this.id, this.value)">
+            <option value="2000">2000</option>
+            <option value="2001">2001</option>
+            <option value="2002">2002</option>
+            <option value="2032">2032</option>
+        </select>
+
+        <select id="month-select" onChange = "selectionChanged(this.id, this.value)">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="12">12</option>
+        </select>
+
+        <select id="day-select" onChange = "selectionChanged(this.id, this.value)">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="31">31</option>
+        </select>
+
+        <select id="hour-select" onChange = "selectionChanged(this.id, this.value)">
+            <option value="0">00</option>
+            <option value="1">01</option>
+            <option value="23">23</option>
+        </select>
+
+        <select id="minute-select" onChange = "selectionChanged(this.id, this.value)">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option>59</option>
+        </select>
+
+        <select id="second-select" onChange = "selectionChanged(this.id, this.value)">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            ……
+            <option>59</option>
+        </select>
+        <br />
+        <p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+
+    </div>
+
+
+
+<script>
+    let year = 2000;
+    let month = 1;
+    let day = 1;
+    let hr = 0;
+    let min = 0;
+    let ss = 0;
+    let timer;
+
+    function selectionChanged(id, value){
+        switch (id) {
+            case "year-select": year = value; break;
+            case "month-select": month = value; break;
+            case "day-select": day = value; break;
+            case "hour-select": hr = value; break;
+            case "minute-select": min = value; break;
+            case "second-select": ss = value; break;
+        }
+        getFullFormattedTime();
+    }
+
+
+    function getFullFormattedTime(){
+        let today = new Date();
+        let resDom = document.getElementById("result-wrapper");
+        let chosenDay = new Date();
+
+        /* 将选择的时间部分组成一个完整的时间 */
+        chosenDay.setFullYear(year, month, day);
+        chosenDay.setHours(hr, min, ss);
+
+        let timeLasting = getTimeLasting(chosenDay, today);
+        resDom.innerHTML =
+            "现在距离 "
+            + year + "年" + month + "月" + day + "日" + hr + ":" + min + ":" + ss + " "
+            + timeLasting
+        ;
+        timer = setTimeout("getFullFormattedTime()", 1000);
+    }
+
+    function getTimeLasting(chosenDay, today) {
+        let timeLasting;
+        let timeComparationStatus;// timeSituation "已经过去" 还是 "还有"
+
+        if (chosenDay >= today) {
+            timeComparationStatus = "  还有  ";
+            timeLasting = formatDuring(chosenDay - today);
+
+        } else {
+            timeComparationStatus = " 已经过去 ";
+            timeLasting = formatDuring(today - chosenDay);
+        }
+
+        return timeComparationStatus + " " + timeLasting;
+    }
+
+    function formatDuring(mss) {
+        var days = parseInt(mss / (1000 * 60 * 60 * 24));
+        var hours = parseInt((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = parseInt((mss % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = parseInt((mss % (1000 * 60)) / 1000);
+        return days + " 天 " + hours + " 小时 " + minutes + " 分钟 " + seconds + " 秒 ";
+    }
+
+</script>
+</body>
+</html>

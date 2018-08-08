@@ -30,8 +30,6 @@
     var timer;
     /* YYYY 年 MM 月 DD 日 星期 D HH:mm:ss */
 
-
-
     function getFullFormattedTime() {
         let today = new Date();
         let formattedYearMonthDay = getYearMonthDay(today);
@@ -46,22 +44,42 @@
         let year = today.getFullYear(today);
         let month = formatSingleUnit(today.getMonth(today));
         let day = formatSingleUnit(today.getDate(today));
-        return year + "年" + month + "月" + day + "日";
+        //return year + "年" + month + "月" + day + "日";
+        return year + "-" + month + "-" + day;
     }
     function getWeek(today){
-        let weekArray = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        //let weekArray = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        let weekArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         let weekNum = today.getDay(today);
         return weekArray[weekNum];
     }
 
     function getTime(today){
-        let hrs = formatSingleUnit(today.getHours());
+        //let hrs = formatSingleUnit(today.getHours());
+        let hrs = formatHrsWithAPM(today.getHours());
         let mins = formatSingleUnit(today.getMinutes());
         let seconds = formatSingleUnit(today.getSeconds());
 
-        return hrs + ":" + mins + ":" + seconds;
+        let suffix = hrs >= 12? "PM" : "AM";
+        return hrs + ":" + mins + ":" + seconds + " " + suffix;
 
     }
+
+    function formatHrsWithAPM(hrs) {
+//       >= 12 要减去12
+//        <12并且<10 要添加0
+        let formattedHrs;
+        if (hrs >= 12) {
+            formattedHrs = hrs - 12;
+            formattedHrs = formattedHrs < 10? "0" + formattedHrs : formattedHrs;
+        } else {
+            // 两种情况: hrs < 10,  10 <= hrs < 12 直接用10判断就好了，<12的情况与suffix无关
+            formattedHrs = hrs < 10 ? "0" + hrs : hrs;
+        }
+        return formattedHrs;
+    }
+
+
 
     function formatSingleUnit(num){
         return num < 10 ? "0" + num: num;
