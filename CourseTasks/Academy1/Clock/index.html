@@ -1,0 +1,82 @@
+<html>
+<head>
+    <style>
+        body {
+
+        }
+
+        .clock-container {
+            margin: 0 auto;
+            width: 600px;
+            height: 300px;
+            text-align: center;
+            font-size: 26px;
+            line-height: 300px;
+        }
+
+        .clock-time {
+            color: coral;
+        }
+    </style>
+</head>
+<body onLoad = "getFullFormattedTime()">
+
+<div class="clock-container">
+    <p class="clock-time">0</p>
+</div>
+
+<script>
+    var val = 0;
+    var timer;
+    /* YYYY 年 MM 月 DD 日 星期 D HH:mm:ss */
+
+
+
+    function getFullFormattedTime() {
+        let today = new Date();
+        let formattedYearMonthDay = getYearMonthDay(today);
+        let formattedWeek = getWeek(today);
+        let formattedTime = getTime(today);
+        document.getElementsByClassName('clock-time')[0].innerHTML =
+            formattedYearMonthDay + " " + formattedWeek + " " + formattedTime;
+        timer = setTimeout("getFullFormattedTime()", 1000);
+    }
+
+    function getYearMonthDay(today) {
+        let year = today.getFullYear(today);
+        let month = formatSingleUnit(today.getMonth(today));
+        let day = formatSingleUnit(today.getDate(today));
+        return year + "年" + month + "月" + day + "日";
+    }
+    function getWeek(today){
+        let weekArray = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+        let weekNum = today.getDay(today);
+        return weekArray[weekNum];
+    }
+
+    function getTime(today){
+        let hrs = formatSingleUnit(today.getHours());
+        let mins = formatSingleUnit(today.getMinutes());
+        let seconds = formatSingleUnit(today.getSeconds());
+
+        return hrs + ":" + mins + ":" + seconds;
+
+    }
+
+    function formatSingleUnit(num){
+        return num < 10 ? "0" + num: num;
+    }
+
+
+
+
+
+</script>
+</body>
+</html>
+
+
+        <!--console.log("触发" + val);-->
+       <!--document.getElementsByClassName('clock-time')[0].innerHTML = val++;-->
+        <!--//document.getElementsByClassName('clock-time')[0].value = val; 不会改变赋值-->
+        <!--timer = setTimeout("addOne()", 1000);-->
