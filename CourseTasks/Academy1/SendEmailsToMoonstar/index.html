@@ -6,31 +6,51 @@
             margin: 0;
             padding: 0;
         }
-        * 
-        {
+
+        * {
             -webkit-box-sizing: border-box;
             -moz-box-sizing: border-box;
             box-sizing: border-box;
         }
+
         input {
             width: 230px;
             height: 35px;
             border: 1px solid #b5b5b5;
-            padding-left: 15px;
+            text-align: center;
+            /*padding-left: 15px;*/
         }
 
         .list-panel {
             display: flex;
-            padding-top: 20px;
-            padding-left: 15px;
+            text-align: center;
             width: 230px;
             border: 1px solid #b5b5b5;
             border-top: 0;
+
         }
 
-        .list-panel-li {
-           
+        li {
             height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        li:hover {
+            height: 32px;
+            background: lightcoral;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chosenLi {
+            height: 32px;
+            background: lightgreen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
@@ -38,22 +58,28 @@
 <div class="wrapper">
     <input id="email-input" type="text"
            oninput="handleInputChange(this.value)"
+           onkeydown="analyzeKeyCode()"
+           autofocus
     />
-    <ul id="email-sug-wrapper" class="email-sug" onclick = "chooseSuffix(this)"></ul>
+    <ul id="email-sug-wrapper" class="email-sug"/>
 </div>
 
 <script>
 
     var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+    let ulDom = document.getElementById("email-sug-wrapper");
+    let inputDom = document.getElementById("email-input");
+    let updatedList = [];
+    let chosenIndex = 0;
 
     function handleInputChange(wordsEntered) {
-        let ulDom = document.getElementById("email-sug-wrapper");
         if (trimSpaces(wordsEntered).length == 0) { //消除空格后 看是否还是有内容的
             hideListPanel(ulDom);
+            updatedList = [];
         } else {
             emptyUlDom(ulDom);  // 删掉上一次创建的所有liNode
             getNewHtmlDom(ulDom, trimSpaces(wordsEntered), postfixList); //渲染新dom
-            displayListPanel(ulDom); //渲染好了之后display
+            displayListPanel(); //渲染好了之后display
         }
     }
 
@@ -63,48 +89,174 @@
         for (let i = 0; i < len; i++) {
             ulDom.removeChild(oldLiNodes[0]); //每次都删除第一个，这样保证数组动态变化后不会少删
         }
+
+        updatedList = [];
     }
 
     function getNewHtmlDom(ulDom, wordsEntered, postfixList) {
-        for (let i = 0; i < postfixList.length; i++) {
-            let currentFix = postfixList[i];
-            createNewLi(wordsEntered, currentFix, ulDom);
+        //在这里判断当前的words如果有@后面的部分 那么匹配postfixlist的第几项
+        let textNode_text;
+        if (wordsEntered.indexOf("@") >= 0) { // 有@ 只使用@之前的字符来拼接
+            if (wordsEntered.indexOf("@") == wordsEntered.length - 1) { //@为最后一位 没有别的内容了
+                /* 用户自己输入了@ 只截取@前面的部分 再去循环postfixlist来匹配所有后缀 */
+                charsBeforeAt = saveCharsOnlyBeforeAt(wordsEntered); // 获取@之前的用户输入
+                textNode_text = charsBeforeAt;
+                for (let i = 0; i < postfixList.length; i++) {
+                    let currentFix = postfixList[i];
+                    createNewLi(textNode_text, currentFix, ulDom, i);
+                }
+            } else {
+                /* 用户输入了@之后，后面还有内容，要根据@后面的内容来匹配对应后缀，无需循环postfixlist*/
+                charsBeforeAt = saveCharsOnlyBeforeAt(wordsEntered); // 获取@之前的用户输入
+                charsAfterAt = saveCharsOnlyAfterAt(wordsEntered); // @之后的内容
+                let postfixMatched = checkPostfixMatching(charsAfterAt); //有可能match了有可能没有
+                if (postfixMatched.length == 0) { //没有匹配的
+                    for (let i = 0; i < postfixList.length; i++) {
+                        let currentFix = postfixList[i];
+                        createNewLi(charsBeforeAt, currentFix, ulDom, i);
+                    }
+                } else { //有匹配的 只生成所对应的 有可能是多个 轮询数组
+                    for (let i = 0; i < postfixMatched.length; i++) {
+                        createNewLi(charsBeforeAt, postfixMatched[i], ulDom, i);
+                    }
+                }
+            }
+        } else {// 循环
+            textNode_text = wordsEntered; // 直接用输入内容去循环得到每一个后缀组合
+            for (let i = 0; i < postfixList.length; i++) {
+                let currentFix = postfixList[i];
+                createNewLi(textNode_text, currentFix, ulDom, i);
+            }
         }
+
     }
 
-    function createNewLi(wordsEntered, currentFix, ulDom) {
+    function createNewLi(textNode_text, currentFix, ulDom, index) {
         var liNode = document.createElement('LI');
-        var textNode = document.createTextNode(wordsEntered + "@" + currentFix);
+        var textNode = document.createTextNode(textNode_text + "@" + currentFix);
+
         liNode.appendChild(textNode);
-        liNode.className = "list-panel-li";
+        liNode.setAttribute("id", index);
+//        liNode.className = "list-panel-li";  不用这样 因为ul是隐藏的 没关系 直接写给li就好了
         ulDom.appendChild(liNode);
+        // 给选项的第一个加上样式
+        colorFirstChildNode(ulDom.childNodes[0]);
+
+        updatedList.push(textNode_text + "@" + currentFix); //维护一个可选的数组
     }
 
-    function hideListPanel(ulDom){
+    function colorFirstChildNode(node) {
+        node.className = "chosenLi";
+    }
+
+    function saveCharsOnlyBeforeAt(content) {
+        let atIndex = content.indexOf("@");
+        return content.substr(0, atIndex); //不包含index位
+    }
+
+    function saveCharsOnlyAfterAt(content) {
+        let atIndex = content.indexOf("@");
+        if (atIndex < content.length - 1) {
+            return content.substr(atIndex + 1, content.length - atIndex - 1);
+        }
+        return '';
+
+    }
+
+    document.getElementById('email-sug-wrapper').addEventListener('click', function (e) {
+        let inputDom = document.getElementById('email-input');
+        inputDom.value = e.target.innerHTML;
+        inputDom.focus();
+        hideListPanel();
+        updatedList = [];
+    });
+
+    function hideListPanel() {
         ulDom.style.display = "none";
     }
 
-    function displayListPanel(ulDom){
+    function displayListPanel() {
         ulDom.style.display = "block";
         ulDom.className = "list-panel"; //增加css class
     }
 
-    function chooseSuffix(e) {
-        console.log(JSON.stringify(e))
-    }
-
-    function trimSpaces(wordsEntered){
+    function trimSpaces(wordsEntered) {
         let trimResult;
         trimResult = wordsEntered.split(" ").join("");
-        trimResult = trimResult.split("@").join("");
+        // trimResult = trimResult.split("@").join("");
+        // 不能直接这样replace掉，因为有可能用户输入了"456@1"此时应该去匹配163.com这个后缀
 
         //  不确定是否要强制规范用户的输入
         //  let inputDom = document.getElementById("email-input");
         //  inputDom.value = trimResult
-
-
         return trimResult;
     }
+
+    function checkPostfixMatching(charsAfterAt) {
+        let matchingArr = [];
+        for (let i = 0; i < postfixList.length; i++) {
+            let currentPostfix = postfixList[i];
+            if (currentPostfix.indexOf(charsAfterAt) != -1) {
+                // 说明匹配上了
+                matchingArr.push(currentPostfix);
+                // 应该有多个
+            }
+        }
+
+        return matchingArr;
+    }
+
+    function analyzeKeyCode() {
+        let keyCode = window.event.keyCode;
+        let inputDom = document.getElementById("email-input");
+        console.log(keyCode)
+        console.log(updatedList);
+        if (updatedList.length != 0) {
+            switch (keyCode) {
+                case 38: // 上
+                    chosenIndex--;
+                    if (chosenIndex < 0) chosenIndex = updatedList.length - 1;
+                    resetChosenLiStyle(chosenIndex);
+                    // 并且移除其他node的background
+                    break;
+                case 40: // 下
+                    chosenIndex++;
+                    if (chosenIndex > updatedList.length - 1) chosenIndex = 0;
+                    resetChosenLiStyle(chosenIndex);
+                    break;
+                case 37: // 左
+                    break;
+                case 39: // 右
+                    break;
+                case 27:
+                    // ESC => 全选用户的输入
+                    inputDom.select();
+                case 13: // 回车
+                    inputDom.value = updatedList[chosenIndex];
+                    inputDom.focus();
+                    hideListPanel();
+                    chosenIndex = 0;
+                    updatedList = [];
+                    break;
+            }
+        } else {
+            if (keyCode == 27) inputDom.select();
+            console.log("没有数组可以选择")
+        }
+
+    }
+
+    function resetChosenLiStyle(chosenIndex) {
+        for (let i = 0; i < ulDom.childNodes.length; i++) {
+            let currentChild = ulDom.childNodes[i];
+            if (chosenIndex != currentChild.id) {
+                if (currentChild.className == "chosenLi") currentChild.className = "";
+            } else {
+                ulDom.childNodes[chosenIndex].className = "chosenLi";
+            }
+        }
+    }
+
 
 </script>
 </body>
