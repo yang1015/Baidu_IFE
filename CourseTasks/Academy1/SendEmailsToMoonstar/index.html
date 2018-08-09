@@ -1,0 +1,111 @@
+<html>
+<head>
+    <style>
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        * 
+        {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        input {
+            width: 230px;
+            height: 35px;
+            border: 1px solid #b5b5b5;
+            padding-left: 15px;
+        }
+
+        .list-panel {
+            display: flex;
+            padding-top: 20px;
+            padding-left: 15px;
+            width: 230px;
+            border: 1px solid #b5b5b5;
+            border-top: 0;
+        }
+
+        .list-panel-li {
+           
+            height: 32px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <input id="email-input" type="text"
+           oninput="handleInputChange(this.value)"
+    />
+    <ul id="email-sug-wrapper" class="email-sug" onclick = "chooseSuffix(this)"></ul>
+</div>
+
+<script>
+
+    var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+
+    function handleInputChange(wordsEntered) {
+        let ulDom = document.getElementById("email-sug-wrapper");
+        if (trimSpaces(wordsEntered).length == 0) { //消除空格后 看是否还是有内容的
+            hideListPanel(ulDom);
+        } else {
+            emptyUlDom(ulDom);  // 删掉上一次创建的所有liNode
+            getNewHtmlDom(ulDom, trimSpaces(wordsEntered), postfixList); //渲染新dom
+            displayListPanel(ulDom); //渲染好了之后display
+        }
+    }
+
+    function emptyUlDom(ulDom) {
+        let oldLiNodes = ulDom.childNodes;
+        let len = oldLiNodes.length; //写死 不然动态.length获取 会有问题
+        for (let i = 0; i < len; i++) {
+            ulDom.removeChild(oldLiNodes[0]); //每次都删除第一个，这样保证数组动态变化后不会少删
+        }
+    }
+
+    function getNewHtmlDom(ulDom, wordsEntered, postfixList) {
+        for (let i = 0; i < postfixList.length; i++) {
+            let currentFix = postfixList[i];
+            createNewLi(wordsEntered, currentFix, ulDom);
+        }
+    }
+
+    function createNewLi(wordsEntered, currentFix, ulDom) {
+        var liNode = document.createElement('LI');
+        var textNode = document.createTextNode(wordsEntered + "@" + currentFix);
+        liNode.appendChild(textNode);
+        liNode.className = "list-panel-li";
+        ulDom.appendChild(liNode);
+    }
+
+    function hideListPanel(ulDom){
+        ulDom.style.display = "none";
+    }
+
+    function displayListPanel(ulDom){
+        ulDom.style.display = "block";
+        ulDom.className = "list-panel"; //增加css class
+    }
+
+    function chooseSuffix(e) {
+        console.log(JSON.stringify(e))
+    }
+
+    function trimSpaces(wordsEntered){
+        let trimResult;
+        trimResult = wordsEntered.split(" ").join("");
+        trimResult = trimResult.split("@").join("");
+
+        //  不确定是否要强制规范用户的输入
+        //  let inputDom = document.getElementById("email-input");
+        //  inputDom.value = trimResult
+
+
+        return trimResult;
+    }
+
+</script>
+</body>
+</html>
