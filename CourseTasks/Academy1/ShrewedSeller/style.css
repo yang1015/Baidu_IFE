@@ -7,3 +7,18 @@ select {
 #table-wrapper {
     margin-top: 30px;
 }
+
+.checkbox-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: baseline;
+    margin: 30px;
+}
+
+.checkbox-wrapper input {
+    /*margin-right: 20px;*/
+}
+
+#table-wrapper {
+    margin: 30px;
+}
