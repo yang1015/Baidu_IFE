@@ -1,8 +1,34 @@
 <html>
 <head>
+    <title>
 
+    </title>
+    <link rel="stylesheet" href="style.css" type="text/css"/>
 </head>
-<body>
+<body onLoad = 'formatTableHeader(), handleRegionChange("华东"), handleProductChange("手机")'>
 
+<div>
+    <select onchange="handleRegionChange(this.value)">
+        <!--默认选的是east china-->
+        <option value = "华东" selected>华东</option>
+        <option value = "华北">华北</option>
+        <option value = "华南">华南</option>
+    </select>
+
+    <select onchange="handleProductChange(this.value)">
+        <!--默认选的是east china-->
+        <option value = "手机" selected>手机</option>
+        <option value = "笔记本">笔记本</option>
+        <option value = "智能音箱">智能音箱</option>
+    </select>
+
+    <div id = "table-wrapper">
+        <div id = "table-header"></div>
+        <div id = "data-table"></div>
+    </div>
+</div>
+
+<script src="./app.js"></script>
+<script src="./data.js"></script>
 </body>
 </html>
