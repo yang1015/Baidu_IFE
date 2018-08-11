@@ -83,23 +83,25 @@
         }
     }
 
+    /* 这是是操作动态数组的重点 */
     function emptyUlDom(ulDom) {
         let oldLiNodes = ulDom.childNodes;
         let len = oldLiNodes.length; //写死 不然动态.length获取 会有问题
         for (let i = 0; i < len; i++) {
             ulDom.removeChild(oldLiNodes[0]); //每次都删除第一个，这样保证数组动态变化后不会少删
         }
-
         updatedList = [];
     }
 
     function getNewHtmlDom(ulDom, wordsEntered, postfixList) {
         //在这里判断当前的words如果有@后面的部分 那么匹配postfixlist的第几项
         let textNode_text;
-        if (wordsEntered.indexOf("@") >= 0) { // 有@ 只使用@之前的字符来拼接
+        if (wordsEntered.indexOf("@") != -1) { // 有@ 只使用@之前的字符来拼接
+
+            charsBeforeAt = saveCharsOnlyBeforeAt(wordsEntered); // 获取@之前的用户输入
+
             if (wordsEntered.indexOf("@") == wordsEntered.length - 1) { //@为最后一位 没有别的内容了
                 /* 用户自己输入了@ 只截取@前面的部分 再去循环postfixlist来匹配所有后缀 */
-                charsBeforeAt = saveCharsOnlyBeforeAt(wordsEntered); // 获取@之前的用户输入
                 textNode_text = charsBeforeAt;
                 for (let i = 0; i < postfixList.length; i++) {
                     let currentFix = postfixList[i];
@@ -107,9 +109,8 @@
                 }
             } else {
                 /* 用户输入了@之后，后面还有内容，要根据@后面的内容来匹配对应后缀，无需循环postfixlist*/
-                charsBeforeAt = saveCharsOnlyBeforeAt(wordsEntered); // 获取@之前的用户输入
                 charsAfterAt = saveCharsOnlyAfterAt(wordsEntered); // @之后的内容
-                let postfixMatched = checkPostfixMatching(charsAfterAt); //有可能match了有可能没有
+                let postfixMatched = checkPostfixMatching(charsAfterAt); //有可能match了有可能(单个或者多个) 也有可能没有
                 if (postfixMatched.length == 0) { //没有匹配的
                     for (let i = 0; i < postfixList.length; i++) {
                         let currentFix = postfixList[i];
@@ -132,21 +133,19 @@
     }
 
     function createNewLi(textNode_text, currentFix, ulDom, index) {
+        /* 新建父元素的子元素，再新建text内容，最后将text node添加给创建好的子元素 */
         var liNode = document.createElement('LI');
         var textNode = document.createTextNode(textNode_text + "@" + currentFix);
-
         liNode.appendChild(textNode);
         liNode.setAttribute("id", index);
-//        liNode.className = "list-panel-li";  不用这样 因为ul是隐藏的 没关系 直接写给li就好了
         ulDom.appendChild(liNode);
-        // 给选项的第一个加上样式
-        colorFirstChildNode(ulDom.childNodes[0]);
-
-        updatedList.push(textNode_text + "@" + currentFix); //维护一个可选的数组
+        colorChosenLi(0);  // 给选项的第一个加上样式
+        updatedList.push(textNode_text + "@" + currentFix); //维护一个可直接选取内容的数组
     }
 
-    function colorFirstChildNode(node) {
-        node.className = "chosenLi";
+    function colorChosenLi(nodeIndex) {
+        let childNodes = ulDom.childNodes;
+        childNodes[nodeIndex].className = "chosenLi";
     }
 
     function saveCharsOnlyBeforeAt(content) {
@@ -156,15 +155,13 @@
 
     function saveCharsOnlyAfterAt(content) {
         let atIndex = content.indexOf("@");
-        if (atIndex < content.length - 1) {
+        if (atIndex < content.length - 1) { // @不能是最后一位
             return content.substr(atIndex + 1, content.length - atIndex - 1);
         }
         return '';
-
     }
 
     document.getElementById('email-sug-wrapper').addEventListener('click', function (e) {
-        let inputDom = document.getElementById('email-input');
         inputDom.value = e.target.innerHTML;
         inputDom.focus();
         hideListPanel();
@@ -187,8 +184,8 @@
         // 不能直接这样replace掉，因为有可能用户输入了"456@1"此时应该去匹配163.com这个后缀
 
         //  不确定是否要强制规范用户的输入
-        //  let inputDom = document.getElementById("email-input");
-        //  inputDom.value = trimResult
+        let inputDom = document.getElementById("email-input");
+        inputDom.value = trimResult;
         return trimResult;
     }
 
@@ -196,32 +193,29 @@
         let matchingArr = [];
         for (let i = 0; i < postfixList.length; i++) {
             let currentPostfix = postfixList[i];
-            if (currentPostfix.indexOf(charsAfterAt) != -1) {
-                // 说明匹配上了
+            if (currentPostfix.indexOf(charsAfterAt) != -1) {// 说明匹配上了
                 matchingArr.push(currentPostfix);
-                // 应该有多个
+                // 也许有多个 所以给个数组来保存
             }
         }
-
         return matchingArr;
     }
 
     function analyzeKeyCode() {
         let keyCode = window.event.keyCode;
-        let inputDom = document.getElementById("email-input");
-        console.log(keyCode)
-        console.log(updatedList);
         if (updatedList.length != 0) {
             switch (keyCode) {
                 case 38: // 上
                     chosenIndex--;
-                    if (chosenIndex < 0) chosenIndex = updatedList.length - 1;
+                    if (chosenIndex == -1)
+                        chosenIndex = updatedList.length - 1; // 首尾相接
                     resetChosenLiStyle(chosenIndex);
                     // 并且移除其他node的background
                     break;
                 case 40: // 下
                     chosenIndex++;
-                    if (chosenIndex > updatedList.length - 1) chosenIndex = 0;
+                    if (chosenIndex == updatedList.length + 1)  // 首尾相接
+                        chosenIndex = 0;
                     resetChosenLiStyle(chosenIndex);
                     break;
                 case 37: // 左
@@ -235,6 +229,7 @@
                     inputDom.value = updatedList[chosenIndex];
                     inputDom.focus();
                     hideListPanel();
+                    // 回车之后，重新置空选项
                     chosenIndex = 0;
                     updatedList = [];
                     break;
@@ -248,10 +243,10 @@
     function resetChosenLiStyle(chosenIndex) {
         for (let i = 0; i < ulDom.childNodes.length; i++) {
             let currentChild = ulDom.childNodes[i];
-            if (chosenIndex != currentChild.id) {
+            if (chosenIndex != currentChild.id) { // 自带的attribute是个updatedList的index完全一致的 因为每次更新都是同时更新/删除
                 if (currentChild.className == "chosenLi") currentChild.className = "";
             } else {
-                ulDom.childNodes[chosenIndex].className = "chosenLi";
+                colorChosenLi(chosenIndex);
             }
         }
     }
