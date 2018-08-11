@@ -23,7 +23,7 @@ function handleClick(category, value) {
         if (value != '全选') checkIfExisted(category, value);
         else {
             productAllChecked = !productAllChecked;
-            checkAllOrEmptyAll(category, !productAllChecked); // 置反
+            checkAllOrEmptyAll(category, productAllChecked); // 置反
         }
     }
     console.log(regionSelected);
@@ -72,31 +72,52 @@ function checkAllOrEmptyAll(category, AllChecked) {
         inputDom.checked = AllChecked ? true : false;
         if (category == "region") {
             if (AllChecked) regionSelected = ['华北', "华南", "华东"];
-            regionSelected = []
+            else regionSelected = []
         } else {
             if (AllChecked) productSelected = ['手机', "智能音箱", "笔记本"];
-            productSelected = []
+            else productSelected = []
         }
     }
+
 }
 
 function getChosenData(regionSelected, productSelected) {
+    console.log(regionSelected)
+    console.log(productSelected);
     let renderData = [];
     for (let i = 0; i < sourceData.length; i++) {
         let currentItem = sourceData[i];
         let region = currentItem.region;
         let product = currentItem.product;
-        for (let r = 0; r < regionSelected.length; r++) {
-            let currentRegion = regionSelected[r];
-            if (currentRegion == region) {
-                for (let p = 0; p < productSelected.length; p++) {
-                    let currentProduct = productSelected[p];
-                    if (currentProduct == product) {
+
+        if (regionSelected.length == 0 && productSelected.length == 0) {
+            console.log("nothing selected");
+        } else if (regionSelected.length == 0) {
+            for (let i = 0; i < productSelected.length; i++) {
+                if (productSelected[i] == product) {
+                    renderData.push(currentItem);
+                }
+            }
+        } else {
+            for (let r = 0; r < regionSelected.length; r++) {
+                let currentRegion = regionSelected[r];
+                if (currentRegion == region) {
+                    if (productSelected.length == 0) {
                         renderData.push(currentItem);
+                    } else {
+                        for (let p = 0; p < productSelected.length; p++) {
+                            let currentProduct = productSelected[p];
+                            if (currentProduct == product) {
+                                renderData.push(currentItem);
+                            }
+                        }
                     }
+
+
                 }
             }
         }
+
     }
     formatNewHTML(renderData);
 }
