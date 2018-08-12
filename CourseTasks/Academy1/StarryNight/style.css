@@ -1,0 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.half-of-window {
+    background: coral;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
