@@ -9,8 +9,6 @@ let regionSelected = [];
 let regionAllChecked = false;
 let productAllChecked = false;
 let productSelected = [];
-let regionArr = ['华北', "华南", "华东"];
-
 
 function handleClick(category, value) {
     if (category == "region") {
@@ -26,10 +24,8 @@ function handleClick(category, value) {
             checkAllOrEmptyAll(category, productAllChecked); // 置反
         }
     }
-    console.log(regionSelected);
-    console.log(productSelected);
 
-    getChosenData(regionSelected, productSelected)
+    getChosenData(regionSelected, productSelected);
 }
 
 function checkIfExisted(type, value) {
@@ -133,35 +129,23 @@ function formatNewHTML(renderData) {
 }
 
 function formatTableHeader() {
-    let tableHeader = document.createElement('div');
-    let headerContent1 = document.createElement('div');
-    let headerContent2 = document.createElement('div');
-    let headerContent3 = document.createElement('div');
+    let tableHeader = document.createElement('tr');
+    let headerContent1 = document.createElement('th');
+    let headerContent2 = document.createElement('th');
 
     let textNode1 = document.createTextNode("商品"),
         textNode2 = document.createTextNode("地区");
     headerContent1.appendChild(textNode1);
     headerContent2.appendChild(textNode2);
-
-    for (let i = 1; i <= 12; i++) {
-        let div = document.createElement('div');
-        let textNode = document.createTextNode(i + "月");
-        div.appendChild(textNode);
-        div.style.width = "45px";
-        div.style.textAlign = "left";
-        headerContent3.appendChild(div);
-    }
-
     tableHeader.appendChild(headerContent1);
     tableHeader.appendChild(headerContent2);
-    tableHeader.appendChild(headerContent3);
 
-    tableHeader.style.display = "flex";
-    tableHeader.style.marginBottom = "30px";
-    headerContent1.style.width = "100px";
-    headerContent2.style.width = "100px";
-    headerContent3.style.display = "flex";
-
+    for (let i = 1; i <= 12; i++) {
+        let div = document.createElement('th');
+        let textNode = document.createTextNode(i + "月");
+        div.appendChild(textNode);
+        tableHeader.appendChild(div);
+    }
 
     tableHeaderRow.appendChild(tableHeader);
     tableWrapperDom.appendChild(tableHeaderRow)
@@ -169,7 +153,6 @@ function formatTableHeader() {
 }
 
 function formatDataContent(renderData) {
-    let dataTable = document.createElement('div');
     /*
     {
         product: "手机", region: "华南",
@@ -179,41 +162,32 @@ function formatDataContent(renderData) {
 
     for (let i = 0; i < renderData.length; i++) {
         let currentItem = renderData[i];
-        let dataRow = document.createElement('div');
-        dataRow.style.display = "flex";
-        dataRow.style.alignItems = "baseline";
+        let dataRow = document.createElement('tr');
 
-        let product = document.createElement('div');
+        let product = document.createElement('td');
         let product_text = document.createTextNode(currentItem.product);
         product.appendChild(product_text);
-        product.style.width = "100px";
+        // product.style.width = "100px";
 
-        let region = document.createElement('div');
+        let region = document.createElement('td');
         let region_text = document.createTextNode(currentItem.region);
         region.appendChild(region_text);
-        region.style.width = "100px";
-
-        let monthData = currentItem.sale;
-        let monthSales = document.createElement('div');
-        monthSales.style.display = "flex";
-        monthSales.style.alignItems = "baseline";
-        for (let s = 0; s < monthData.length; s++) {
-            let sales = document.createElement('p');
-            let sales_text = document.createTextNode(monthData[i]);
-            sales.appendChild(sales_text);
-            sales.style.width = "45px";
-            sales.style.textAlign = "left";
-            monthSales.appendChild(sales);
-        }
+        // region.style.width = "100px";
 
         dataRow.appendChild(product);
         dataRow.appendChild(region);
-        dataRow.appendChild(monthSales);
 
-        dataTable.appendChild(dataRow);
+        let monthData = currentItem.sale;
+        for (let s = 0; s < monthData.length; s++) {
+            let sales = document.createElement('td');
+            let sales_text = document.createTextNode(monthData[s]);
+            sales.appendChild(sales_text);
+            dataRow.appendChild(sales);
+        }
+
+        tableData.appendChild(dataRow);
     }
 
-    tableData.appendChild(dataTable)
     tableWrapperDom.appendChild(tableData);
 
 }

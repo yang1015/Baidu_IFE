@@ -35,7 +35,7 @@ function changeDivSize() {
 function findDom() {
     getAllListItem();
     findAllHtmlSpanInOneSection('news-top');
-    findListItem('news-top', 'CSS');
+    findListItem('news-top', 'JS');
     getActiveLinkContent('news-top')
 }
 
@@ -45,12 +45,19 @@ function getAllListItem() {
 
 }
 
-function findAllHtmlSpanInOneSection(sectionId) {
-    // 返回某个section下所有span中内容为HTML的span标签
+function findAllHtmlSpanInOneSection(sectionId) { // 返回某个section下所有span中内容为HTML的span标签
+
+    let spanList = document.querySelector('#' + sectionId).querySelectorAll('span'); //getEleById类似
+    for (let i = 0; i < spanList.length; i++) {
+        if (spanList[i].innerHTML == "HTML"){
+            console.log(spanList[i])
+        }
+    }
+
+    /*
     let sectionEl = document.getElementById(sectionId).getElementsByTagName('span');
     // let sectionElChildNodes = sectionEl.childNodes; 搜了span 就已经是一个数组了 没有childNodes
     // let spanList = sectionElChildNodes.getElementsByTagName('span'); 错误用法
-
     // 要找的node可能不在section的第一层子元素里诶
     for (let i = 0; i < sectionEl.length; i++) {
         let currentChild = sectionEl[i];
@@ -58,11 +65,14 @@ function findAllHtmlSpanInOneSection(sectionId) {
             console.log(currentChild);
         }
     }
+    */
+
+
 
 }
 
-function findListItem(sectionId, spanCont) {
-    // 返回某个section下，所有所包含span内容为spanCont的LI标签
+function findListItem(sectionId, spanCont) { // 返回某个section下，所有所包含span内容为spanCont的LI标签
+    /*
     let sectionEl = document.getElementById(sectionId).getElementsByTagName('span');
     for (let i = 0; i < sectionEl.length; i++) {
         let currentChild = sectionEl[i];
@@ -70,12 +80,19 @@ function findListItem(sectionId, spanCont) {
             console.log(currentChild.parentNode);
         }
     }
+    */
+
+    let res = document.querySelector('#' + sectionId).querySelectorAll('li > span');
+    for (let i = 0; i < res.length; i++) {
+        if (res[i].innerHTML == spanCont) {
+            console.log(res[i].parentNode);
+        }
+    }
 
 }
 
-function getActiveLinkContent(sectionId) {
-    // 返回某个section下，class为active的链接中包含的文字内容
-    let arr = [];
+function getActiveLinkContent(sectionId) { // 返回某个section下，class为active的链接中包含的文字内容
+    /*
     let sectionEl = document.getElementById(sectionId).getElementsByTagName('a');
     //let sectionElChildNodes = sectionEl.childNodes;
     for (let i = 0; i < sectionEl.length; i++) {
@@ -83,6 +100,15 @@ function getActiveLinkContent(sectionId) {
         if (currentChild.className == "active") {
             console.log(currentChild);
         }
+    }
+    */
+
+
+   // let res = document.querySelector('#' + sectionId).querySelectorAll('a[class = active]');
+    let res = document.querySelector('#' + sectionId).querySelectorAll('a.active'); //是a并且有active class
+    // attribute为class, attribute value为actived li标签
+    for (let i = 0; i < res.length; i++) {
+        console.log(res[i].innerHTML);
     }
 }
 
