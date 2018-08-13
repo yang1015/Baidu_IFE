@@ -194,7 +194,7 @@ function formatDataContent(renderData) {
     }
 
     tableWrapperDom.appendChild(table);
-    //changeTd();
+    changeTd();
 
 }
 
