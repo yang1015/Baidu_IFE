@@ -1,14 +1,16 @@
-let tableWrapperDom = document.getElementById('table-wrapper');
-let tableHeaderRow = document.getElementById('table-header');
-let tableData = document.getElementById('data-table');
+let tableWrapperDom = document.querySelector('#table-wrapper');
+// let tableHeaderRow = document.querySelector('#table-header');
+// let tableData = document.querySelector('#data-table');
+let table = document.createElement('table');
 
-let regionCheckboxDom = document.getElementsByClassName('region-checkbox')[0];
-let productCheckboxDom = document.getElementsByClassName('product-checkbox')[0];
+let regionCheckboxDom = document.querySelector('region-checkbox');
+let productCheckboxDom = document.querySelector('product-checkbox');
 
 let regionSelected = [];
+let productSelected = [];
 let regionAllChecked = false;
 let productAllChecked = false;
-let productSelected = [];
+
 
 function handleClick(category, value) {
     if (category == "region") {
@@ -43,12 +45,12 @@ function checkIfExisted(type, value) {
         }
 
     } else if (type == 'product') {
-        console.log(value);
+       // console.log(value);
         if (productSelected.length == 0) {
             productSelected.push(value);
         } else {
             for (let i = 0; i < productSelected.length; i++) {
-                console.log(productSelected[i]);
+               // console.log(productSelected[i]);
                 if (productSelected[i] == value) { // 已经存在 再点是为了remove
                     productSelected.splice(i, 1); // i为起始位置 1为删除个数
                     return; // 一定要return 不然无论如何下面都会再加一遍
@@ -78,8 +80,8 @@ function checkAllOrEmptyAll(category, AllChecked) {
 }
 
 function getChosenData(regionSelected, productSelected) {
-    console.log(regionSelected)
-    console.log(productSelected);
+    // console.log(regionSelected)
+    // console.log(productSelected);
     let renderData = [];
     for (let i = 0; i < sourceData.length; i++) {
         let currentItem = sourceData[i];
@@ -87,10 +89,16 @@ function getChosenData(regionSelected, productSelected) {
         let product = currentItem.product;
 
         if (regionSelected.length == 0 && productSelected.length == 0) {
-            console.log("nothing selected");
+          //  console.log("nothing selected");
         } else if (regionSelected.length == 0) {
             for (let i = 0; i < productSelected.length; i++) {
                 if (productSelected[i] == product) {
+                    renderData.push(currentItem);
+                }
+            }
+        } else if (productSelected.length == 0) {
+            for (let i = 0; i < regionSelected.length; i++) {
+                if (regionSelected[i] == region) {
                     renderData.push(currentItem);
                 }
             }
@@ -98,18 +106,12 @@ function getChosenData(regionSelected, productSelected) {
             for (let r = 0; r < regionSelected.length; r++) {
                 let currentRegion = regionSelected[r];
                 if (currentRegion == region) {
-                    if (productSelected.length == 0) {
-                        renderData.push(currentItem);
-                    } else {
-                        for (let p = 0; p < productSelected.length; p++) {
-                            let currentProduct = productSelected[p];
-                            if (currentProduct == product) {
-                                renderData.push(currentItem);
-                            }
+                    for (let p = 0; p < productSelected.length; p++) {
+                        let currentProduct = productSelected[p];
+                        if (currentProduct == product) {
+                            renderData.push(currentItem);
                         }
                     }
-
-
                 }
             }
         }
@@ -123,12 +125,15 @@ function formatNewHTML(renderData) {
     // formatTableHeader();
 
     emptyDataTable();
+    formatTableHeader();
     formatDataContent(renderData);
     // 内容
     // html内容赋给table wrapper
 }
 
 function formatTableHeader() {
+    table.setAttribute('id', 'table');
+
     let tableHeader = document.createElement('tr');
     let headerContent1 = document.createElement('th');
     let headerContent2 = document.createElement('th');
@@ -147,8 +152,8 @@ function formatTableHeader() {
         tableHeader.appendChild(div);
     }
 
-    tableHeaderRow.appendChild(tableHeader);
-    tableWrapperDom.appendChild(tableHeaderRow)
+    table.appendChild(tableHeader);
+    tableWrapperDom.appendChild(table);
 
 }
 
@@ -160,6 +165,7 @@ function formatDataContent(renderData) {
     }
     */
 
+   //console.log(renderData)
     for (let i = 0; i < renderData.length; i++) {
         let currentItem = renderData[i];
         let dataRow = document.createElement('tr');
@@ -167,12 +173,11 @@ function formatDataContent(renderData) {
         let product = document.createElement('td');
         let product_text = document.createTextNode(currentItem.product);
         product.appendChild(product_text);
-        // product.style.width = "100px";
+
 
         let region = document.createElement('td');
         let region_text = document.createTextNode(currentItem.region);
         region.appendChild(region_text);
-        // region.style.width = "100px";
 
         dataRow.appendChild(product);
         dataRow.appendChild(region);
@@ -185,17 +190,64 @@ function formatDataContent(renderData) {
             dataRow.appendChild(sales);
         }
 
-        tableData.appendChild(dataRow);
+        table.appendChild(dataRow);
     }
 
-    tableWrapperDom.appendChild(tableData);
+    tableWrapperDom.appendChild(table);
+    //changeTd();
 
 }
 
 function emptyDataTable() {
     // tableData.childNodes = []; 这样是无效的需要循环删除
-    let len = tableData.childNodes.length;
+    //let len = tableData.childNodes.length;
+    let len = document.querySelector('#table').childNodes.length;
+    let parentNode = document.querySelector('#table');
+    let childNodes = parentNode.childNodes;
+    for (let i = 0; i < len; i++) { //从1开始 不删除header
+        parentNode.removeChild(childNodes[0]);
+    }
+
+    /*
     for (let i = 0; i < len; i++) {
         tableData.removeChild(tableData.childNodes[0]);
     }
+    */
 }
+
+function changeTd() {
+    //let regionChecked = document.querySelector('.region-checkbox').querySelectorAll("input[type=checkbox]:checked");
+    //let productChecked = document.querySelector('.product-checkbox').querySelectorAll("input[type=checkbox]:checked");
+    let tab = document.querySelector("#table");
+
+    // 本来默认商品在前显示 地区在后显示
+    // 所以只考虑相反的情况
+    if (regionSelected.length === 1 && productSelected.length !== 1) { // 当只选择了一个region，多个products时(或者未选择product时)
+        for (let i = 0; i < tab.rows.length; i++) {
+            /* 交换所有数据的前两列的内容显示位置 */
+            let temp = tab.rows[i].cells[0].innerHTML; // 记录每一行第0列的内容
+            tab.rows[i].cells[0].innerHTML = tab.rows[i].cells[1].innerHTML; // 让每一行第0列的文字 = 原本属于第1列的文字
+            tab.rows[i].cells[1].innerHTML = temp; // 第1列的文字 = 第0列
+        }
+    }
+
+    mergeCell(1, 0); // 将上一步处理完的内容，查询相似的上下行，如果一致，合并单元格
+}
+/******合并单元格******/
+function mergeCell(startrow, col) {
+    let tab = document.querySelector("#table");
+    for (let i = startrow; i < tab.rows.length - 1; i++) {
+        // 如果第i行和第i+1行内容相同则隐藏第i+1行，同时第i行的rowSpan+1
+        if (tab.rows[startrow].cells[col].innerHTML === tab.rows[i + 1].cells[col].innerHTML) {
+            // 上面i<len-1，下面使用i+1 就不需要考虑出界问题了
+            tab.rows[i + 1].cells[col].style.display = "none";
+            tab.rows[startrow].cells[col].rowSpan += 1;
+        }
+        // 不相等的时候从第i+1行再次执行次函数
+        else {
+            mergeCell(i + 1, 0)
+        }
+    }
+}
+
+formatTableHeader();
