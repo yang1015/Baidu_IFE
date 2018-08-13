@@ -3,8 +3,8 @@ let tableWrapperDom = document.querySelector('#table-wrapper');
 // let tableData = document.querySelector('#data-table');
 let table = document.createElement('table');
 
-let regionCheckboxDom = document.querySelector('region-checkbox');
-let productCheckboxDom = document.querySelector('product-checkbox');
+let regionCheckboxDom = document.querySelector('.region-checkbox');
+let productCheckboxDom = document.querySelector('.product-checkbox');
 
 let regionSelected = [];
 let productSelected = [];
