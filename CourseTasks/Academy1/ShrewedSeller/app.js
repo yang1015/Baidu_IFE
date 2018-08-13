@@ -1,7 +1,5 @@
 let tableWrapperDom = document.querySelector('#table-wrapper');
-// let tableHeaderRow = document.querySelector('#table-header');
-// let tableData = document.querySelector('#data-table');
-let table = document.createElement('table');
+let table = document.querySelector('#table');
 
 let regionCheckboxDom = document.querySelector('.region-checkbox');
 let productCheckboxDom = document.querySelector('.product-checkbox');
@@ -115,7 +113,6 @@ function getChosenData(regionSelected, productSelected) {
                 }
             }
         }
-
     }
     formatNewHTML(renderData);
 }
@@ -125,14 +122,19 @@ function formatNewHTML(renderData) {
     // formatTableHeader();
 
     emptyDataTable();
-    formatTableHeader();
-    formatDataContent(renderData);
+    formatTable(renderData);
+
     // 内容
     // html内容赋给table wrapper
 }
 
+function formatTable(renderData){
+
+    formatTableHeader();
+    formatDataContent(renderData);
+}
+
 function formatTableHeader() {
-    table.setAttribute('id', 'table');
 
     let tableHeader = document.createElement('tr');
     let headerContent1 = document.createElement('th');
@@ -201,18 +203,15 @@ function formatDataContent(renderData) {
 function emptyDataTable() {
     // tableData.childNodes = []; 这样是无效的需要循环删除
     //let len = tableData.childNodes.length;
-    let len = document.querySelector('#table').childNodes.length;
-    let parentNode = document.querySelector('#table');
-    let childNodes = parentNode.childNodes;
-    for (let i = 0; i < len; i++) { //从1开始 不删除header
-        parentNode.removeChild(childNodes[0]);
-    }
 
-    /*
-    for (let i = 0; i < len; i++) {
-        tableData.removeChild(tableData.childNodes[0]);
+    if (document.querySelector('#table')) { // 初始化的时候是没有childNodes的 当没有任何后代的时候，连childNodes这个属性都没有的
+        let len = document.querySelector('#table').childNodes.length;
+        let parentNode = document.querySelector('#table');
+        let childNodes = parentNode.childNodes;
+        for (let i = 0; i < len; i++) { //从1开始 不删除header
+            parentNode.removeChild(childNodes[0]);
+        }
     }
-    */
 }
 
 function changeTd() {
@@ -250,4 +249,4 @@ function mergeCell(startrow, col) {
     }
 }
 
-formatTableHeader();
+getChosenData([], []);
