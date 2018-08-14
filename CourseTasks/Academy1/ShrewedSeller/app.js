@@ -9,7 +9,6 @@ let productSelected = [];
 let regionAllChecked = false;
 let productAllChecked = false;
 
-
 function handleClick(category, value) {
     if (category == "region") {
         if (value != '全选') checkIfExisted(category, value);
@@ -129,7 +128,6 @@ function formatNewHTML(renderData) {
 }
 
 function formatTable(renderData){
-
     formatTableHeader();
     formatDataContent(renderData);
 }

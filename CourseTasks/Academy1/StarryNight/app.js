@@ -42,6 +42,7 @@ function findDom() {
 function getAllListItem() {
     // 返回页面中所有li标签
     let allLiElement = document.querySelectorAll('li');
+    console.log(allLiElement);
 
 }
 
@@ -49,7 +50,7 @@ function findAllHtmlSpanInOneSection(sectionId) { // 返回某个section下所�
 
     let spanList = document.querySelector('#' + sectionId).querySelectorAll('span'); //getEleById类似
     for (let i = 0; i < spanList.length; i++) {
-        if (spanList[i].innerHTML == "HTML"){
+        if (spanList[i].innerHTML == "HTML") {
             console.log(spanList[i])
         }
     }
@@ -68,7 +69,6 @@ function findAllHtmlSpanInOneSection(sectionId) { // 返回某个section下所�
     */
 
 
-
 }
 
 function findListItem(sectionId, spanCont) { // 返回某个section下，所有所包含span内容为spanCont的LI标签
@@ -83,6 +83,7 @@ function findListItem(sectionId, spanCont) { // 返回某个section下，所有�
     */
 
     let res = document.querySelector('#' + sectionId).querySelectorAll('li > span');
+    //console.log(res);
     for (let i = 0; i < res.length; i++) {
         if (res[i].innerHTML == spanCont) {
             console.log(res[i].parentNode);
@@ -104,7 +105,7 @@ function getActiveLinkContent(sectionId) { // 返回某个section下，class为a
     */
 
 
-   // let res = document.querySelector('#' + sectionId).querySelectorAll('a[class = active]');
+    // let res = document.querySelector('#' + sectionId).querySelectorAll('a[class = active]');
     let res = document.querySelector('#' + sectionId).querySelectorAll('a.active'); //是a并且有active class
     // attribute为class, attribute value为actived li标签
     for (let i = 0; i < res.length; i++) {
